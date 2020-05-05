@@ -35,7 +35,8 @@ private:
     int player_x_axis;
     int player_y_axis;
     int box_place[_num_box][2]={{2,2},{3,3},{4,4}};
-    vector<vector<char>> _vec_record_table;
+
+    vector<vector<vector<char>>> _vec_record_table;
 
 public slots:
     void up();
