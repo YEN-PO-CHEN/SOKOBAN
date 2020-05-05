@@ -38,10 +38,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     QPixmap pix_box(":/res/PNG/Crate_Brown.png");
     for (int i = 0; i < _num_box; ++i)
     {
-        label_wall[i] = new QLabel(this);
-        label_wall[i]->setGeometry(box_place[i][0] * one_pixel, box_place[i][1] * one_pixel, one_pixel, one_pixel);
-        label_wall[i]->setPixmap(pix_box);
-        label_wall[i]->setScaledContents(true);
+        label_box[i] = new QLabel(this);
+        label_box[i]->setGeometry(box_place[i][0] * one_pixel, box_place[i][1] * one_pixel, one_pixel, one_pixel);
+        label_box[i]->setPixmap(pix_box);
+        label_box[i]->setScaledContents(true);
         _vec_record_table.at(box_place[i][0]).at(box_place[i][1]).at(0) = 'B';
         char now = '0'+i;
         _vec_record_table.at(box_place[i][0]).at(box_place[i][1]).at(1) = now;
@@ -101,7 +101,7 @@ void MainWindow::up()
             int i = _which -'0';
             qDebug() << player_x_axis<< player_y_axis<<i<<endl;
 
-            //label_box[i]->move(player_x_axis*one_pixel,(player_y_axis-2)*one_pixel);
+            label_box[i]->move(player_x_axis*one_pixel,(player_y_axis-2)*one_pixel);
 
             qDebug() << "hello";
             _vec_record_table.at(player_x_axis).at(player_y_axis-1).at(0)='0';
@@ -127,7 +127,7 @@ void MainWindow::down()
             int i = _which -'0';
             qDebug() << player_x_axis<< player_y_axis<<i<<endl;
 
-            //label_box[i]->move(player_x_axis*one_pixel,(player_y_axis+2)*one_pixel);
+            label_box[i]->move(player_x_axis*one_pixel,(player_y_axis+2)*one_pixel);
 
             qDebug() << "hello";
             _vec_record_table.at(player_x_axis).at(player_y_axis+1).at(0)='0';
@@ -151,7 +151,7 @@ void MainWindow::right()
             int i = _which -'0';
             qDebug() << player_x_axis<< player_y_axis<<i<<endl;
 
-            //label_box[i]->move(player_x_axis*one_pixel,(player_y_axis+2)*one_pixel);
+            label_box[i]->move((player_x_axis+2)*one_pixel,player_y_axis*one_pixel);
 
             qDebug() << "hello";
             _vec_record_table.at(player_x_axis+1).at(player_y_axis).at(0)='0';
@@ -177,7 +177,7 @@ void MainWindow::left()
             int i = _which -'0';
             qDebug() << player_x_axis<< player_y_axis<<i<<endl;
 
-            //label_box[i]->move(player_x_axis*one_pixel-2,(player_y_axis)*one_pixel);
+            label_box[i]->move((player_x_axis-2)*one_pixel,player_y_axis*one_pixel);
 
             qDebug() << "hello";
             _vec_record_table.at(player_x_axis-1).at(player_y_axis).at(0)='0';

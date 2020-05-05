@@ -25,14 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    box.cpp \
         main.cpp \
         mainwindow.cpp \
-    player.cpp
+    player.cpp \
+    wall.cpp
 
 HEADERS += \
     box.h \
         mainwindow.h \
-    player.h
+    player.h \
+    wall.h
 
 FORMS += \
         mainwindow.ui
