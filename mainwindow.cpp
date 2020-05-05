@@ -1,52 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "player.h"
+#include "box.h"
+#include "wall.h"
+#include "sokoban.h"
+#include "main.h"
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
+                                          capoo(this),
+                                          _wall(this),
+                                          _box(this),
                                           ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     initialize_vector();
-    label_player = new QLabel(this);
-    player_x_axis = 1;
-    player_y_axis = 1;
-    label_player->setGeometry(player_x_axis*one_pixel, player_y_axis*one_pixel, one_pixel, one_pixel);
-
-    QPixmap pix_player(":/res/PNG/player.jpg");
-
-    //player
-    label_player->setPixmap(pix_player);
-    label_player->setScaledContents(true);
-    QPixmap pix_wall(":/res/PNG/Wall_Brown.png");
-
-    //wall
-    for (int i = 0, j = 0; j < (_square_size + 2) * (_square_size + 2); ++j)
-    {
-        int x = j / (_square_size + 2);
-        int y = j % (_square_size + 2);
-        if (x != 0 && x != (_square_size + 1))
-            if (y != 0 && y != (_square_size + 1))
-                continue;
-        label_wall[i] = new QLabel(this);
-        label_wall[i]->setGeometry(x * one_pixel, y * one_pixel, one_pixel, one_pixel);
-        label_wall[i]->setPixmap(pix_wall);
-        label_wall[i]->setScaledContents(true);
-        ++i;
-        _vec_record_table.at(x).at(y).at(0) = 'W';
-    }
-
     //box
-    QPixmap pix_box(":/res/PNG/Crate_Brown.png");
-    for (int i = 0; i < _num_box; ++i)
-    {
-        label_box[i] = new QLabel(this);
-        label_box[i]->setGeometry(box_place[i][0] * one_pixel, box_place[i][1] * one_pixel, one_pixel, one_pixel);
-        label_box[i]->setPixmap(pix_box);
-        label_box[i]->setScaledContents(true);
-        _vec_record_table.at(box_place[i][0]).at(box_place[i][1]).at(0) = 'B';
-        char now = '0'+i;
-        _vec_record_table.at(box_place[i][0]).at(box_place[i][1]).at(1) = now;
-    }
-
+    count_box();
+    //wall
+    count_wall();
     /*覆蓋問題
     QPixmap pix_ground(":/res/PNG/Ground_Sand.png");
     for(int i = 0;i<(_square_size*_square_size);++i){
@@ -91,111 +61,134 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::up()
 {
-    if (_vec_record_table.at(player_x_axis).at(player_y_axis-1).at(0)=='W')
+    if (_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(0)=='W')
         return;
-    if(_vec_record_table.at(player_x_axis).at(player_y_axis-1).at(0)=='B'){
-        if(_vec_record_table.at(player_x_axis).at(player_y_axis-2).at(0)=='W')
+    if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(0)=='B'){
+        if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-2).at(0)=='W')
             return;
         else{
-            char _which =_vec_record_table.at(player_x_axis).at(player_y_axis-1).at(1);
+            char _which =_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(1);
             int i = _which -'0';
-            qDebug() << player_x_axis<< player_y_axis<<i<<endl;
+            qDebug() << capoo.x_axis<< capoo.y_axis<<i<<endl;
 
-            label_box[i]->move(player_x_axis*one_pixel,(player_y_axis-2)*one_pixel);
+            _box.lab[i]->move(capoo.x_axis*one_pixel,(capoo.y_axis-2)*one_pixel);
 
             qDebug() << "hello";
-            _vec_record_table.at(player_x_axis).at(player_y_axis-1).at(0)='0';
-            _vec_record_table.at(player_x_axis).at(player_y_axis-2).at(0)='B';
-            _vec_record_table.at(player_x_axis).at(player_y_axis-1).at(1)='0';
-            _vec_record_table.at(player_x_axis).at(player_y_axis-2).at(1)=_which;
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(0)='0';
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis-2).at(0)='B';
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(1)='0';
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis-2).at(1)=_which;
         }
     }
 
-    player_y_axis -=1;
-    label_player->move(player_x_axis*one_pixel, player_y_axis*one_pixel);
+    capoo.y_axis -=1;
+    capoo.lab->move(capoo.x_axis*one_pixel, capoo.y_axis*one_pixel);
 }
 
 void MainWindow::down()
 {
-    if (_vec_record_table.at(player_x_axis).at(player_y_axis+1).at(0)=='W')
+    if (_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(0)=='W')
         return;
-    if(_vec_record_table.at(player_x_axis).at(player_y_axis+1).at(0)=='B'){
-        if(_vec_record_table.at(player_x_axis).at(player_y_axis+2).at(0)=='W')
+    if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(0)=='B'){
+        if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+2).at(0)=='W')
             return;
         else{
-            char _which =_vec_record_table.at(player_x_axis).at(player_y_axis+1).at(1);
+            char _which =_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(1);
             int i = _which -'0';
-            qDebug() << player_x_axis<< player_y_axis<<i<<endl;
+            qDebug() << capoo.x_axis<< capoo.y_axis<<i<<endl;
 
-            label_box[i]->move(player_x_axis*one_pixel,(player_y_axis+2)*one_pixel);
+            _box.lab[i]->move(capoo.x_axis*one_pixel,(capoo.y_axis+2)*one_pixel);
 
             qDebug() << "hello";
-            _vec_record_table.at(player_x_axis).at(player_y_axis+1).at(0)='0';
-            _vec_record_table.at(player_x_axis).at(player_y_axis+2).at(0)='B';
-            _vec_record_table.at(player_x_axis).at(player_y_axis+1).at(1)='0';
-            _vec_record_table.at(player_x_axis).at(player_y_axis+2).at(1)=_which;
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(0)='0';
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis+2).at(0)='B';
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(1)='0';
+           _vec_record_table.at(capoo.x_axis).at(capoo.y_axis+2).at(1)=_which;
         }
     }
-    player_y_axis += 1;
-    label_player->move(player_x_axis*one_pixel, player_y_axis*one_pixel);
+    capoo.y_axis += 1;
+    capoo.lab->move(capoo.x_axis*one_pixel, capoo.y_axis*one_pixel);
 }
 void MainWindow::right()
 {
-    if (_vec_record_table.at(player_x_axis+1).at(player_y_axis).at(0)=='W')
+    if (_vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(0)=='W')
         return;
-    if(_vec_record_table.at(player_x_axis+1).at(player_y_axis).at(0)=='B'){
-        if(_vec_record_table.at(player_x_axis+2).at(player_y_axis).at(0)=='W')
+    if(_vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(0)=='B'){
+        if(_vec_record_table.at(capoo.x_axis+2).at(capoo.y_axis).at(0)=='W')
             return;
         else{
-            char _which =_vec_record_table.at(player_x_axis+1).at(player_y_axis).at(1);
+            char _which =_vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(1);
             int i = _which -'0';
-            qDebug() << player_x_axis<< player_y_axis<<i<<endl;
+            qDebug() << capoo.x_axis<< capoo.y_axis<<i<<endl;
 
-            label_box[i]->move((player_x_axis+2)*one_pixel,player_y_axis*one_pixel);
+            _box.lab[i]->move((capoo.x_axis+2)*one_pixel,capoo.y_axis*one_pixel);
 
             qDebug() << "hello";
-            _vec_record_table.at(player_x_axis+1).at(player_y_axis).at(0)='0';
-            _vec_record_table.at(player_x_axis+2).at(player_y_axis).at(0)='B';
-            _vec_record_table.at(player_x_axis+1).at(player_y_axis).at(1)='0';
-            _vec_record_table.at(player_x_axis+2).at(player_y_axis).at(1)=_which;
+           _vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(0)='0';
+           _vec_record_table.at(capoo.x_axis+2).at(capoo.y_axis).at(0)='B';
+           _vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(1)='0';
+           _vec_record_table.at(capoo.x_axis+2).at(capoo.y_axis).at(1)=_which;
         }
     }
-    if (player_x_axis == _square_size)
+    if (capoo.x_axis == _square_size)
         return;
-    player_x_axis +=1;
-    label_player->move(player_x_axis*one_pixel, player_y_axis*one_pixel);
+    capoo.x_axis +=1;
+    capoo.lab->move(capoo.x_axis*one_pixel, capoo.y_axis*one_pixel);
 }
 void MainWindow::left()
 {
-    if (_vec_record_table.at(player_x_axis-1).at(player_y_axis).at(0)=='W')
+    if (_vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(0)=='W')
         return;
-    if(_vec_record_table.at(player_x_axis-1).at(player_y_axis).at(0)=='B'){
-        if(_vec_record_table.at(player_x_axis-2).at(player_y_axis).at(0)=='W')
+    if(_vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(0)=='B'){
+        if(_vec_record_table.at(capoo.x_axis-2).at(capoo.y_axis).at(0)=='W')
             return;
         else{
-            char _which =_vec_record_table.at(player_x_axis-1).at(player_y_axis).at(1);
+            char _which =_vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(1);
             int i = _which -'0';
-            qDebug() << player_x_axis<< player_y_axis<<i<<endl;
+            qDebug() << capoo.x_axis<< capoo.y_axis<<i<<endl;
 
-            label_box[i]->move((player_x_axis-2)*one_pixel,player_y_axis*one_pixel);
+            _box.lab[i]->move((capoo.x_axis-2)*one_pixel,capoo.y_axis*one_pixel);
 
             qDebug() << "hello";
-            _vec_record_table.at(player_x_axis-1).at(player_y_axis).at(0)='0';
-            _vec_record_table.at(player_x_axis-2).at(player_y_axis).at(0)='B';
-            _vec_record_table.at(player_x_axis-1).at(player_y_axis).at(1)='0';
-            _vec_record_table.at(player_x_axis-2).at(player_y_axis).at(1)=_which;
+           _vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(0)='0';
+           _vec_record_table.at(capoo.x_axis-2).at(capoo.y_axis).at(0)='B';
+           _vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(1)='0';
+           _vec_record_table.at(capoo.x_axis-2).at(capoo.y_axis).at(1)=_which;
         }
     }
-    player_x_axis -=1;
-    label_player->move(player_x_axis*one_pixel, player_y_axis*one_pixel);
+    capoo.x_axis -=1;
+    capoo.lab->move(capoo.x_axis*one_pixel, capoo.y_axis*one_pixel);
 }
-
 void MainWindow::initialize_vector()
 {
+    //initialize 3d_vector[_square_size+2][_square_size+2][2]
     _vec_record_table.resize(_square_size + 2);
     for (int i = 0; i < (_square_size + 2); ++i)
-         _vec_record_table.at(i).resize(_square_size + 2);
+    _vec_record_table.at(i).resize(_square_size + 2);
     for (int i = 0; i < (_square_size + 2); ++i)
         for (int j = 0; j < (_square_size + 2); ++j)
-            _vec_record_table.at(i).at(j).resize(2,'0');
+           _vec_record_table.at(i).at(j).resize(2,'0');
 }
+void MainWindow::count_box(){
+    box_where box;
+    for (int i = 0; i < _num_box; ++i)
+    {
+        _vec_record_table.at(box.place[i][0]).at(box.place[i][1]).at(0) = 'B';
+        char now = '0'+i;
+        _vec_record_table.at(box.place[i][0]).at(box.place[i][1]).at(1) = now;
+    }
+
+}
+void MainWindow::count_wall(){
+    for (int i = 0, j = 0; j < (_square_size + 2) * (_square_size + 2); ++j)
+    {
+        int x = j / (_square_size + 2);
+        int y = j % (_square_size + 2);
+        if (x != 0 && x != (_square_size + 1))
+            if (y != 0 && y != (_square_size + 1))
+                continue;
+        ++i;
+        _vec_record_table.at(x).at(y).at(0) = 'W';
+    }
+}
+

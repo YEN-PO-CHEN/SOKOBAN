@@ -33,8 +33,10 @@ SOURCES += \
 
 HEADERS += \
     box.h \
+    main.h \
         mainwindow.h \
     player.h \
+    sokoban.h \
     wall.h
 
 FORMS += \

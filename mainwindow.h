@@ -1,16 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "player.h"
+#include "box.h"
+#include "wall.h"
+#include "sokoban.h"
 #include <QMainWindow>
-#include <QLabel>
-#include <QPixmap>
-#include <QKeyEvent>
-#include <QDebug>
-#include <QVector>
-#define one_pixel 100
-#define _square_size 8
-
-#define _num_box 3
 using namespace std;
 namespace Ui {
 class MainWindow;
@@ -25,18 +19,17 @@ public:
     ~MainWindow();
     void keyPressEvent(QKeyEvent *e);
     void initialize_vector();
+    void count_box();
+    void count_wall();
+    player capoo;
+    wall _wall;
+    box _box;
 
 private:
     Ui::MainWindow *ui;
-    QLabel *label_player;
     QLabel *label_ground[(_square_size*_square_size)];
-    QLabel *label_wall[(_square_size+1)*4];
-    QLabel *label_box[_num_box];
-    int player_x_axis;
-    int player_y_axis;
-    int box_place[_num_box][2]={{2,2},{3,3},{4,4}};
-
     vector<vector<vector<char>>> _vec_record_table;
+
 
 public slots:
     void up();
@@ -49,7 +42,6 @@ signals:
     void down_signal();
     void right_signal();
     void left_signal();
-
 };
 
 #endif // MAINWINDOW_H
