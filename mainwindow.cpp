@@ -1,14 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "player.h"
+
 #include "box.h"
-#include "wall.h"
-#include "sokoban.h"
+#include "block.h"
+#include "end_space.h"
 #include "main.h"
+#include "ground.h"
+#include "player.h"
+#include "sokoban.h"
+#include "wall.h"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
-                                          capoo(this),
                                           _wall(this),
+                                          _ground(this),
+                                          _block(this),
+                                          _end(this),
                                           _box(this),
+                                          capoo(this),
                                           ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -17,18 +25,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
     count_box();
     //wall
     count_wall();
-    /*覆蓋問題
-    QPixmap pix_ground(":/res/PNG/Ground_Sand.png");
-    for(int i = 0;i<(_square_size*_square_size);++i){
-        int x=(i /_square_size)+1;
-        int y=(i %_square_size)+1;
-        label_ground[i] = new QLabel(this);
-        label_ground[i]->setGeometry(x*one_pixel,y*one_pixel,one_pixel,one_pixel);
-        label_ground[i]->setPixmap(pix_ground);
-        label_ground[i]->setAutoFillBackground(true);
-        label_ground[i]->setScaledContents(true);
-    }
-    */
+    //block
+    count_block();
+
     connect(this, SIGNAL(up_signal()), this, SLOT(up()));
     connect(this, SIGNAL(down_signal()), this, SLOT(down()));
     connect(this, SIGNAL(right_signal()), this, SLOT(right()));
@@ -66,6 +65,9 @@ void MainWindow::up()
     if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(0)=='B'){
         if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-2).at(0)=='W')
             return;
+        else if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-2).at(0)=='B'){
+            return;
+        }
         else{
             char _which =_vec_record_table.at(capoo.x_axis).at(capoo.y_axis-1).at(1);
             int i = _which -'0';
@@ -92,6 +94,8 @@ void MainWindow::down()
     if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(0)=='B'){
         if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+2).at(0)=='W')
             return;
+        else if(_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+2).at(0)=='B')
+            return;
         else{
             char _which =_vec_record_table.at(capoo.x_axis).at(capoo.y_axis+1).at(1);
             int i = _which -'0';
@@ -115,6 +119,8 @@ void MainWindow::right()
         return;
     if(_vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(0)=='B'){
         if(_vec_record_table.at(capoo.x_axis+2).at(capoo.y_axis).at(0)=='W')
+            return;
+        else if(_vec_record_table.at(capoo.x_axis+2).at(capoo.y_axis).at(0)=='B')
             return;
         else{
             char _which =_vec_record_table.at(capoo.x_axis+1).at(capoo.y_axis).at(1);
@@ -141,6 +147,8 @@ void MainWindow::left()
         return;
     if(_vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(0)=='B'){
         if(_vec_record_table.at(capoo.x_axis-2).at(capoo.y_axis).at(0)=='W')
+            return;
+        else if(_vec_record_table.at(capoo.x_axis-2).at(capoo.y_axis).at(0)=='B')
             return;
         else{
             char _which =_vec_record_table.at(capoo.x_axis-1).at(capoo.y_axis).at(1);
@@ -191,4 +199,16 @@ void MainWindow::count_wall(){
         _vec_record_table.at(x).at(y).at(0) = 'W';
     }
 }
+
+void MainWindow::count_block(){
+    block_where block;
+    for (int c = 0; c <= _square_size; ++c)
+        for (int r = 0; r <= _square_size; ++r)
+        {
+            if(block.block[c][r]==0)
+                continue;
+            _vec_record_table.at(r+1).at(c+1).at(0) = 'W';
+        }
+}
+
 

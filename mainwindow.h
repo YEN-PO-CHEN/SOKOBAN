@@ -1,9 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "player.h"
 #include "box.h"
-#include "wall.h"
+#include "block.h"
+#include "end_space.h"
+#include "main.h"
+#include "ground.h"
+#include "player.h"
 #include "sokoban.h"
+#include "wall.h"
 #include <QMainWindow>
 using namespace std;
 namespace Ui {
@@ -21,13 +25,21 @@ public:
     void initialize_vector();
     void count_box();
     void count_wall();
-    player capoo;
+    void count_block();
     wall _wall;
+    ground _ground;
+    block _block;
+    end_space _end;
     box _box;
+    //end_space _end_space;
+    player capoo;
+
+
+
 
 private:
     Ui::MainWindow *ui;
-    QLabel *label_ground[(_square_size*_square_size)];
+
     vector<vector<vector<char>>> _vec_record_table;
 
 

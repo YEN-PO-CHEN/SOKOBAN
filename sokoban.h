@@ -8,10 +8,11 @@
 #include <QObject>
 #include <QPixmap>
 #include <QVector>
+#include <QWidget>
 
 
 #define one_pixel 100
-#define _square_size 8
+#define _square_size 6
 #define _num_box 3
 
 

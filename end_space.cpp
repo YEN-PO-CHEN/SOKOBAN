@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include "box.h"
 #include "block.h"
 #include "end_space.h"
@@ -7,15 +6,15 @@
 #include "player.h"
 #include "sokoban.h"
 #include "wall.h"
-box::box(QWidget * here)
+end_space::end_space(QWidget * here)
 {
-    box_where box;
-    QPixmap pix_box(":/res/PNG/Crate_Brown.png");
+    end_where end;
+    QPixmap pix_end(":/res/PNG/EndPoint_Brown.png");
     for (int i = 0; i < _num_box; ++i)
     {
         lab[i] = new QLabel(here);
-        lab[i]->setGeometry(box.place[i][0] * one_pixel, box.place[i][1] * one_pixel, one_pixel, one_pixel);
-        lab[i]->setPixmap(pix_box);
+        lab[i]->setGeometry((end.place[i][0]+0.35) * one_pixel, (end.place[i][1]+0.35) * one_pixel, 0.3*one_pixel, 0.3*one_pixel);
+        lab[i]->setPixmap(pix_end);
         lab[i]->setScaledContents(true);
     }
 }

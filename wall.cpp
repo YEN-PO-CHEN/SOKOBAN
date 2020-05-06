@@ -1,8 +1,11 @@
-
-#include "player.h"
 #include "box.h"
-#include "wall.h"
+#include "block.h"
+#include "end_space.h"
+#include "main.h"
+#include "ground.h"
+#include "player.h"
 #include "sokoban.h"
+#include "wall.h"
 //#include "main.h"
 
 wall::wall(QWidget * here)
