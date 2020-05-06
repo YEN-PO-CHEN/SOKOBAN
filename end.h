@@ -1,13 +1,16 @@
-#ifndef END_SPACE_H
-#define END_SPACE_H
+#ifndef END_H
+#define END_H
+#include <QObject>
 #include "sokoban.h"
+#include "main.h"
 class end_space : public QObject
 {
     Q_OBJECT
 public:
-    end_space(QWidget *);
+    end_space(QWidget *,int);
     end_space();
     QLabel *lab[_num_box];
 
 };
-#endif // END_SPACE_H
+
+#endif // END_H

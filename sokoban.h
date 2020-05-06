@@ -12,9 +12,7 @@
 
 
 #define one_pixel 100
-#define _square_size 6
+#define _square_size 8
 #define _num_box 3
-
-
 
 #endif // SOKOBAN_H

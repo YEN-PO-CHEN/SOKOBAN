@@ -1,20 +1,18 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "sokoban.h"
 
+#include <QObject>
+#include "sokoban.h"
+#include "main.h"
 class box : public QObject
 {
     Q_OBJECT
-
 public:
-    box(QWidget *);
+
+    box(QWidget *,int);
     box();
     QLabel *lab[_num_box];
-
-signals:
-
-public slots:
 
 };
 

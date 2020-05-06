@@ -42,6 +42,7 @@
         <file>res/PNG/GroundGravel_Dirt.png</file>
         <file>res/PNG/GroundGravel_Grass.png</file>
         <file>res/PNG/GroundGravel_Sand.png</file>
+        <file>res/PNG/player.jpg</file>
         <file>res/PNG/Wall_Beige.png</file>
         <file>res/PNG/Wall_Black.png</file>
         <file>res/PNG/Wall_Brown.png</file>
@@ -50,6 +51,5 @@
         <file>res/PNG/WallRound_Black.png</file>
         <file>res/PNG/WallRound_Brown.png</file>
         <file>res/PNG/WallRound_Gray.png</file>
-        <file>res/PNG/player.jpg</file>
     </qresource>
 </RCC>
