@@ -5,7 +5,7 @@
 wall::wall(QWidget * here,int lev)
 {
     QPixmap pix_wall(":/res/PNG/Wall_Brown.png");
-    if(lev==1){
+
         level1 level;
         int i=0;
         for (int x = 0; x < (_square_size); ++x)
@@ -18,7 +18,4 @@ wall::wall(QWidget * here,int lev)
                 lab[i]->setScaledContents(true);
                 ++i;
         }
-    }
-
-
 }

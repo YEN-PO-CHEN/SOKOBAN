@@ -12,12 +12,10 @@ player::player(QWidget * here,int lev)
         x_axis = 2;
         y_axis = 1;
     }
-    /*
-    if(lev==1){
-        x_axis = 2;
-        y_axis = 1;
+    if(lev==2){
+        x_axis = 1;
+        y_axis = 5;
     }
-    */
     lab->setGeometry(x_axis*one_pixel, y_axis*one_pixel, one_pixel, one_pixel);
     QPixmap pix_player(":/res/PNG/player.jpg");
 

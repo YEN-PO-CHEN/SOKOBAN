@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    _background.cpp \
     _block.cpp \
     _box.cpp \
     _end.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     firstwindow.cpp
 
 HEADERS += \
+    background.h \
     block.h \
     box.h \
     end.h \

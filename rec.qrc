@@ -51,5 +51,6 @@
         <file>res/PNG/WallRound_Black.png</file>
         <file>res/PNG/WallRound_Brown.png</file>
         <file>res/PNG/WallRound_Gray.png</file>
+        <file>res/PNG/sokoban.png</file>
     </qresource>
 </RCC>

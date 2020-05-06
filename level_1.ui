@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>level_1</class>
- <widget class="QMainWindow" name="level_1">
+ <widget class="QDialog" name="level_1">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QPushButton" name="menuButton">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>800</x>
      <y>0</y>
-     <width>800</width>
-     <height>24</height>
+     <width>200</width>
+     <height>200</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>MENU</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>30</width>
+     <height>30</height>
+    </size>
+   </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
