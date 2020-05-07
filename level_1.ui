@@ -25,7 +25,9 @@
    <property name="font">
     <font>
      <family>SetoFont</family>
-     <pointsize>20</pointsize>
+     <pointsize>25</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -36,6 +38,28 @@
      <width>30</width>
      <height>30</height>
     </size>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="restartButton">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>200</y>
+     <width>201</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>RESTART</string>
    </property>
   </widget>
  </widget>

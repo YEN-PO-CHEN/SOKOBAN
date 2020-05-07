@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QWidget>
 
+
 level_1::level_1(QWidget *parent) :
     QDialog(parent),
     _block(this,1),
@@ -11,17 +12,21 @@ level_1::level_1(QWidget *parent) :
     _ground(this,1),
     _player(this,1),
     _wall(this,1),
+    _background(this,1),
     ui(new Ui::level_1)
 {
     ui->setupUi(this);
-    is_Opened = true;
+    _background._1_is_Opened = true;
+    _background._1_is_not_Finished = false;
+    _background.where_am_i = 1;
+
     connect(this, SIGNAL(up_signal()), this, SLOT(up()));
     connect(this, SIGNAL(down_signal()), this, SLOT(down()));
     connect(this, SIGNAL(right_signal()), this, SLOT(right()));
     connect(this, SIGNAL(left_signal()), this, SLOT(left()));
     connect(this, SIGNAL(restart_signal()),this,SLOT(restart()));
     connect(this, SIGNAL(next_signal()), this, SLOT(next_level()));
-    //connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
+    connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
     connect(ui->menuButton, SIGNAL(clicked()), this, SLOT(on_back_clicked()));
 }
 
@@ -74,7 +79,10 @@ void level_1::up(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis-2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit next_signal();
                     break;
@@ -108,7 +116,10 @@ void level_1::down(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis+2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit next_signal();
                     break;
@@ -142,7 +153,10 @@ void level_1::left(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis)==level.end[m][0]&&(_player.x_axis-2) ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit next_signal();
                     break;
@@ -176,7 +190,10 @@ void level_1::right(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis)==level.end[m][0]&&(_player.x_axis+2) == level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit next_signal();
                     qDebug() <<"here";
@@ -189,20 +206,62 @@ void level_1::right(){
     _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
 }
 void level_1::restart(){
+    level1 level;
 
-}
-void level_1::on_Main_Menu_clicked(){
-    main->show();
-    close();
+    //reset count
+    count = 0;
+    //reset player
+        _player.lab->setGeometry(level._where_player[1]* one_pixel,level._where_player[0] * one_pixel, one_pixel, one_pixel);
+        //reset x_axis y_axis
+        _player.x_axis = 2;
+        _player.y_axis = 1;
+
+    //reset vector
+    level1_table = level.table;
+
+    //reset box
+        //reset box color
+    for (int a=0;a<_num_box;++a) {
+        QPixmap pix_block(":/res/PNG/Crate_Brown.png");
+        _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
+        _box.lab[a]->setPixmap(pix_block);
+        _box.lab[a]->setScaledContents(true);
+    }
+
+
+    //reset _bool_box
+    for(int i =0;i<_num_box;++i)
+        _bool_box[i] = false;
+    //reset step
+        step = 0;
+
 }
 
 void level_1::next_level(){
+
     this->hide();
-    is_Opened = false;
+    _background._1_is_Opened = false;
+    _background._1_is_not_Finished = false;
+    _background._2_is_Opened = true;
+    _background._2_is_not_Finished = true;
+    _background.where_am_i = 1;
+
+
     tnd_level->resize(one_pixel*(_square_size+2),one_pixel*(_square_size+2));
     tnd_level->show();
+    tnd_level->exec();
+
+    if(_background.where_am_i==2)
+        _background.is_exec_2 =true;
+
+
 }
 void level_1::on_back_clicked(){
+    _background._1_is_Opened = true;
+    _background._1_is_not_Finished = true;
+    _background._2_is_Opened = false;
+   _background._2_is_not_Finished = true;
+   _background.where_am_i = 1;
     close();
 }
 

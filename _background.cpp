@@ -8,9 +8,12 @@
 
 
 
-background::background(QWidget * here)
+background::background(QWidget * here,int i)
 {
+
+
     lab_back = new QLabel(here);
+
 
     lab_back->setGeometry(10,30,1080,276);
     QPixmap pix_sokoban(":/res/PNG/sokoban.png");
@@ -18,4 +21,6 @@ background::background(QWidget * here)
     //player
     lab_back->setPixmap(pix_sokoban);
     lab_back->setScaledContents(true);
+    if(i != 0)
+        lab_back->hide();
 }

@@ -6,7 +6,7 @@
 #include "background.h"
 FirstWindow::FirstWindow(QWidget *parent)
     : QMainWindow(parent),
-      _background(this),
+      _background(this,0),
       ui(new Ui::FirstWindow)
 {
     ui->setupUi(this);
@@ -38,24 +38,51 @@ void FirstWindow::on_level1_clicked(){
     fst_level->resize(one_pixel*(_square_size+2),one_pixel*(_square_size+2));
     fst_level->show();
     fst_level->exec();
-    if(!fst_level->is_Opened)
+    tnd_level->close();
+
+
+    //1.open 1.notfinish 2.close 2.notfinish 1.where am i
+    if(_background._1_is_Opened == true &&
+            _background._1_is_not_Finished == true &&
+            _background._2_is_Opened == false &&
+            _background._2_is_not_Finished == true &&
+            _background.where_am_i ==1)
         this->show();
-    else if(fst_level->is_Opened)
+    //1.close 1.finish 2.open 2.notfinish 1.where am i 2.is not exec
+    if(_background._1_is_Opened == false &&
+            _background._1_is_not_Finished == false &&
+            _background._2_is_Opened == true &&
+            _background._2_is_not_Finished == true &&
+            _background.where_am_i == 1 &&
+            _background.is_exec_2 == false)
         this->hide();
-    else if(!tnd_level->is_Opened)
+    //1.close 1.finish 2.open 2.notfinish 2.where am i
+    if(_background._1_is_Opened == false &&
+            _background._1_is_not_Finished == false &&
+            _background._2_is_Opened == true &&
+            _background._2_is_not_Finished == true &&
+            _background.where_am_i == 2)
         this->show();
-    else
+    //1.close 1.finish 2.close 2.finish 2.where am i 2.is exec
+    if(_background._1_is_Opened == false &&
+            _background._1_is_not_Finished == false &&
+            _background._2_is_Opened == false &&
+            _background._2_is_not_Finished == false &&
+            _background.where_am_i == 2 &&
+            _background.is_exec_2 ==true)
         this->show();
+
+
+
+
+
 }
 void FirstWindow::on_level2_clicked(){
     this->hide();
     tnd_level->resize(one_pixel*(_square_size+2),one_pixel*(_square_size+2));
     tnd_level->show();
     tnd_level->exec();
-    if(tnd_level->is_Opened)
         this->show();
-    else
-        this->hide();
 
 }
 

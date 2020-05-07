@@ -12,7 +12,7 @@
 #include "player.h"
 #include "wall.h"
 #include "level_2.h"
-
+#include "background.h"
 
 namespace Ui {
 class level_1;
@@ -33,7 +33,11 @@ public:
     player _player;
     wall _wall;
     int count =0;
-    bool is_Opened = false;
+    /*
+    static bool is_Opened;
+    static bool is_not_Finished;
+    */
+    background _background;
     int step = 0;
 
 private:
@@ -47,6 +51,7 @@ private:
                                                 {{'W','W'},{'E','E'},{'O','O'},{'O','O'},{'O','O'},{'B','2'},{'O','O'},{'W','W'}},
                                                 {{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'}}};
     //int end[_num_box][2]={{5,1},{6,1},{7,1}};
+    bool _bool_box[_num_box]={false,false,false};
     QMainWindow *main;
     void on_Main_Menu_clicked();
     level_2 *tnd_level=new level_2;

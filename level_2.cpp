@@ -9,10 +9,16 @@ level_2::level_2(QWidget *parent) :
     _ground(this,2),
     _player(this,2),
     _wall(this,2),
+    _background(this,2),
     ui(new Ui::level_2)
 {
     ui->setupUi(this);
-    is_Opened = true;
+
+    _background._2_is_Opened = true;
+    _background._2_is_not_Finished = true;
+    _background.where_am_i = 2;
+
+
     connect(this, SIGNAL(up_signal()), this, SLOT(up()));
     connect(this, SIGNAL(down_signal()), this, SLOT(down()));
     connect(this, SIGNAL(right_signal()), this, SLOT(right()));
@@ -20,6 +26,7 @@ level_2::level_2(QWidget *parent) :
     connect(this, SIGNAL(restart_signal()),this,SLOT(restart()));
     connect(this,SIGNAL(end_signal()),this,SLOT(end()));
     connect(ui->menuButton, SIGNAL(clicked()), this, SLOT(on_back_clicked()));
+    connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
 }
 
 level_2::~level_2()
@@ -74,7 +81,10 @@ void level_2::up(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis-2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit end_signal();
                     break;
@@ -108,7 +118,10 @@ void level_2::down(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis+2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit end_signal();
                     break;
@@ -142,7 +155,10 @@ void level_2::left(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis)==level.end[m][0]&&(_player.x_axis-2) ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit end_signal();
                     break;
@@ -176,7 +192,13 @@ void level_2::right(){
             for(int m=0;m<_num_box;++m)
                 if((_player.y_axis)==level.end[m][0]&&(_player.x_axis+2) ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
-                    ++count;
+                    if(!_bool_box[i]){
+                        if(!_bool_box[i]){
+                        ++count;
+                        _bool_box[i]=true;
+                    }
+                        _bool_box[i]=true;
+                    }
                     if(count == _num_box)
                         emit end_signal();
                     break;
@@ -187,17 +209,52 @@ void level_2::right(){
     _player.x_axis += 1;
     _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
 }
-void level_2::restart(){
 
-}
 void level_2::on_back_clicked(){
-
+    _background._2_is_Opened = true;
+    _background._2_is_not_Finished = true;
+    _background.where_am_i =2;
     close();
 }
 void level_2::end(){
-    is_Opened = false;
+
+    _background._2_is_Opened = false;
+    _background._2_is_not_Finished = false;
+    _background.where_am_i = 2;
     close();
 }
+void level_2::restart(){
+    level2 level;
+
+    //reset count
+    count = 0;
+    //reset player
+        _player.lab->setGeometry(level._where_player[1]* one_pixel,level._where_player[0] * one_pixel, one_pixel, one_pixel);
+        //reset x_axis y_axis
+        _player.x_axis = 1;
+        _player.y_axis = 5;
+
+    //reset vector
+    level2_table = level.table;
+
+    //reset box
+        //reset box color
+    for (int a=0;a<_num_box;++a) {
+        QPixmap pix_block(":/res/PNG/Crate_Brown.png");
+        _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
+        _box.lab[a]->setPixmap(pix_block);
+        _box.lab[a]->setScaledContents(true);
+    }
+
+
+    //reset _bool_box
+    for(int i =0;i<_num_box;++i)
+        _bool_box[i] = false;
+    //reset step
+        step = 0;
+
+}
+
 
 
 

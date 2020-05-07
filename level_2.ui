@@ -31,11 +31,30 @@
    <property name="font">
     <font>
      <family>SetoFont</family>
-     <pointsize>15</pointsize>
+     <pointsize>25</pointsize>
     </font>
    </property>
    <property name="text">
     <string>MENU</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="restartButton">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>200</y>
+     <width>201</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>RESTART</string>
    </property>
   </widget>
  </widget>

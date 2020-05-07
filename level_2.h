@@ -11,6 +11,7 @@
 #include "ground.h"
 #include "player.h"
 #include "wall.h"
+#include "background.h"
 
 namespace Ui {
 class level_2;
@@ -31,7 +32,13 @@ public:
     player _player;
     wall _wall;
     int count =0;
-    bool is_Opened=false;
+    /*
+    static bool is_Opened;
+    static bool is_not_Finished;
+    */
+    background _background;
+    int step =0;
+
 
 private:
     Ui::level_2 *ui;
@@ -44,6 +51,7 @@ private:
                                                 {{'W','W'},{'E','E'},{'O','O'},{'O','O'},{'O','O'},{'O','O'},{'E','E'},{'W','W'}},
                                                 {{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'}}};
     //int end[_num_box][2]={{5,1},{4,2},{6,5}};
+    bool _bool_box[_num_box]={false,false,false};
     QMainWindow *main;
     void on_Main_Menu_clicked();
 public slots:
