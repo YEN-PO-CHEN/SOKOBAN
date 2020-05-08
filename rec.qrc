@@ -55,5 +55,6 @@
         <file>res/PNG/player_r.png</file>
         <file>res/PNG/star_no.png</file>
         <file>res/PNG/star_yes.png</file>
+        <file>res/PNG/star_sp.png</file>
     </qresource>
 </RCC>

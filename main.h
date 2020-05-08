@@ -17,6 +17,7 @@ public:
     int end[_num_box][2]={{4,1},{5,1},{6,1}};
     int box[_num_box][2]={{5,2},{2,3},{6,5}};
     bool _bool_box[_num_box]={false,false,false};
+    int special_end[2]={5,1};
     int _where_player[2]={1,2};
 
 };
@@ -33,6 +34,7 @@ public:
                                          {{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'}}};
     int end[_num_box][2]={{6,1},{1,6},{6,6}};
     int box[_num_box][2]={{4,1},{3,2},{5,4}};
+    int special_end[2]={1,6};
     bool _bool_box[_num_box]={false,false,false};
     int _where_player[2]={5,1};
 

@@ -27,11 +27,14 @@ level_1::level_1(QWidget *parent) :
     connect(this, SIGNAL(left_signal()), this, SLOT(left()));
     connect(this, SIGNAL(restart_signal()),this,SLOT(restart()));
     connect(this, SIGNAL(next_signal()), this, SLOT(nextbuttom()));
+    connect(this, SIGNAL(special_signal()), this, SLOT(special()));
     connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
     connect(ui->menuButton, SIGNAL(clicked()), this, SLOT(on_back_clicked()));
     connect(ui->nextButton, SIGNAL(clicked()),this,SLOT(next_level()));
+    connect(ui->specialButton, SIGNAL(clicked()),this,SLOT(next_level()));
     ui->nextButton->hide();
     ui->restartButton->hide();
+    ui->specialButton->hide();
 }
 
 level_1::~level_1()
@@ -99,9 +102,8 @@ void level_1::up(){
     }
 
     _player.y_axis -=1;
-    _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
-    ++step;
-    ui->lcdNumber->display(step);
+    something_check();
+
 }
 void level_1::down(){
     ui->restartButton->show();
@@ -141,9 +143,7 @@ void level_1::down(){
     }
 
     _player.y_axis +=1;
-    _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
-    ++step;
-    ui->lcdNumber->display(step);
+    something_check();
 }
 void level_1::left(){
     ui->restartButton->show();
@@ -185,9 +185,7 @@ void level_1::left(){
     }
 
     _player.x_axis -=1;
-    _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
-    ++step;
-    ui->lcdNumber->display(step);
+    something_check();
 }
 void level_1::right(){
     ui->restartButton->show();
@@ -230,9 +228,8 @@ void level_1::right(){
     }
 
     _player.x_axis += 1;
-    _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
-++step;
-    ui->lcdNumber->display(step);
+
+    something_check();
 }
 void level_1::restart(){
     ui->restartButton->hide();
@@ -304,7 +301,24 @@ void level_1::on_back_clicked(){
 }
 
 void level_1::nextbuttom(){
+
     ui->nextButton->show();
+}
+
+void level_1::special(){
+    ui->specialButton->show();
+     QPixmap pix_star(":/res/PNG/star_sp.png");
+    _star.lab[3]->setPixmap(pix_star);
+
+}
+void level_1::something_check(){
+    level1 level;
+    _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
+    ++step;
+    ui->lcdNumber->display(step);
+    if(_player.x_axis==level.special_end[1]&&_player.y_axis==level.special_end[0])
+            emit special_signal();
+    return;
 }
 
 

@@ -8,7 +8,7 @@ class star
 public:
     star();
     star(QWidget *);
-    QLabel *lab[_num_box];
+    QLabel *lab[_num_box+1];
 };
 
 #endif // STAR_H

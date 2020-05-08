@@ -41,6 +41,7 @@ public:
     */
     background _background;
     int step = 0;
+    void something_check();
 
 private:
     Ui::level_1 *ui;
@@ -54,6 +55,7 @@ private:
                                                 {{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'}}};
     //int end[_num_box][2]={{5,1},{6,1},{7,1}};
     bool _bool_box[_num_box]={false,false,false};
+
     QMainWindow *main;
     void on_Main_Menu_clicked();
     level_2 *tnd_level=new level_2;
@@ -66,6 +68,7 @@ public slots:
     void next_level();
     void on_back_clicked();
     void nextbuttom();
+    void special();
 
 signals:
     void up_signal();
@@ -74,6 +77,7 @@ signals:
     void left_signal();
     void restart_signal();
     void next_signal();
+    void special_signal();
 
 
 

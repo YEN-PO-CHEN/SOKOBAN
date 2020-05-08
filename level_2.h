@@ -40,6 +40,7 @@ public:
     */
     background _background;
     int step =0;
+    void something_check();
 
 
 private:
@@ -64,7 +65,7 @@ public slots:
     void restart();
     void end();
     void on_back_clicked();
-
+    void special();
     void back();
 
 signals:
@@ -75,6 +76,7 @@ signals:
     void restart_signal();
     void next_signal();
     void end_signal();
+    void special_signal();
 
 };
 

@@ -106,6 +106,27 @@
     <number>0</number>
    </property>
   </widget>
+  <widget class="QPushButton" name="specialButton">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>800</y>
+     <width>401</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>23</pointsize>
+     <strikeout>false</strikeout>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string>SPECIAL END！</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
