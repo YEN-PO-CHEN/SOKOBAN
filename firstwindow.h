@@ -8,7 +8,10 @@
 #include "background.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class FirstWindow; }
+namespace Ui
+{
+class FirstWindow;
+}
 QT_END_NAMESPACE
 
 class FirstWindow : public QMainWindow
@@ -30,8 +33,8 @@ private slots:
 
 private:
     Ui::FirstWindow *ui;
-    level_1 *fst_level=new level_1;
-    level_2 *tnd_level=new level_2;
+    level_1 *fst_level = new level_1;
+    level_2 *tnd_level = new level_2;
     QLabel *lab_table;
 };
 #endif // FIRSTWINDOW_H

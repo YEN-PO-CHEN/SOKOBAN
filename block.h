@@ -8,11 +8,9 @@ class block : public QObject
 {
     Q_OBJECT
 public:
-
-    block(QWidget *,int);
+    block(QWidget *, int);
     block();
-    QLabel *lab[ _square_size* _square_size];
-
+    QLabel *lab[_square_size * _square_size];
 };
 
 #endif // BLOCK_H

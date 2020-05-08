@@ -8,9 +8,8 @@ class wall : public QObject
     Q_OBJECT
 
 public:
-    wall(QWidget *,int);
+    wall(QWidget *, int);
     wall();
-    QLabel *lab[(_square_size-1)*4];
-
+    QLabel *lab[(_square_size - 1) * 4];
 };
 #endif // WALL_H

@@ -3,18 +3,16 @@
 #include <QMainWindow>
 #include <QWidget>
 
-
-level_1::level_1(QWidget *parent) :
-    QDialog(parent),
-    _block(this,1),
-    _end(this,1),
-    _box(this,1),
-    _ground(this,1),
-    _player(this,1),
-    _wall(this,1),
-    _star(this),
-    _background(this,1),
-    ui(new Ui::level_1)
+level_1::level_1(QWidget *parent) : QDialog(parent),
+                                    _block(this, 1),
+                                    _end(this, 1),
+                                    _box(this, 1),
+                                    _ground(this, 1),
+                                    _player(this, 1),
+                                    _wall(this, 1),
+                                    _star(this),
+                                    _background(this, 1),
+                                    ui(new Ui::level_1)
 {
     ui->setupUi(this);
     _background._1_is_Opened = true;
@@ -25,13 +23,13 @@ level_1::level_1(QWidget *parent) :
     connect(this, SIGNAL(down_signal()), this, SLOT(down()));
     connect(this, SIGNAL(right_signal()), this, SLOT(right()));
     connect(this, SIGNAL(left_signal()), this, SLOT(left()));
-    connect(this, SIGNAL(restart_signal()),this,SLOT(restart()));
+    connect(this, SIGNAL(restart_signal()), this, SLOT(restart()));
     connect(this, SIGNAL(next_signal()), this, SLOT(nextbuttom()));
     connect(this, SIGNAL(special_signal()), this, SLOT(special()));
     connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
     connect(ui->menuButton, SIGNAL(clicked()), this, SLOT(on_back_clicked()));
-    connect(ui->nextButton, SIGNAL(clicked()),this,SLOT(next_level()));
-    connect(ui->specialButton, SIGNAL(clicked()),this,SLOT(next_level()));
+    connect(ui->nextButton, SIGNAL(clicked()), this, SLOT(next_level()));
+    connect(ui->specialButton, SIGNAL(clicked()), this, SLOT(next_level()));
     ui->nextButton->hide();
     ui->restartButton->hide();
     ui->specialButton->hide();
@@ -63,165 +61,201 @@ void level_1::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
-void level_1::up(){
+void level_1::up()
+{
     ui->restartButton->show();
 
     level1 level;
-    char xy = level1_table.at(_player.y_axis-1).at(_player.x_axis).at(0);
+    char xy = level1_table.at(_player.y_axis - 1).at(_player.x_axis).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
 
-    if (xy=='W'||xy=='K')
+    if (xy == 'W' || xy == 'K')
         return;
-    if(xy=='B'){
-        char xy_minus_1 = level1_table.at(_player.y_axis-2).at(_player.x_axis).at(0);
-        if(xy_minus_1=='W'||xy_minus_1=='K'||xy_minus_1=='B')
+    if (xy == 'B')
+    {
+        char xy_minus_1 = level1_table.at(_player.y_axis - 2).at(_player.x_axis).at(0);
+        if (xy_minus_1 == 'W' || xy_minus_1 == 'K' || xy_minus_1 == 'B')
             return;
-        else{
-            char _which =level1_table.at(_player.y_axis-1).at(_player.x_axis).at(1);
-            int i = _which -'0';
-            _box.lab[i]->move((_player.x_axis)*one_pixel,(_player.y_axis-2)*one_pixel);
+        else
+        {
+            char _which = level1_table.at(_player.y_axis - 1).at(_player.x_axis).at(1);
+            int i = _which - '0';
+            _box.lab[i]->move((_player.x_axis) * one_pixel, (_player.y_axis - 2) * one_pixel);
 
-            level1_table.at(_player.y_axis-1).at(_player.x_axis).at(0)='0';
-            level1_table.at(_player.y_axis-2).at(_player.x_axis).at(0)='B';
-            level1_table.at(_player.y_axis-1).at(_player.x_axis).at(1)='0';
-            level1_table.at(_player.y_axis-2).at(_player.x_axis).at(1)=_which;
-            for(int m=0;m<_num_box;++m)
-                if((_player.y_axis-2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
+            level1_table.at(_player.y_axis - 1).at(_player.x_axis).at(0) = '0';
+            level1_table.at(_player.y_axis - 2).at(_player.x_axis).at(0) = 'B';
+            level1_table.at(_player.y_axis - 1).at(_player.x_axis).at(1) = '0';
+            level1_table.at(_player.y_axis - 2).at(_player.x_axis).at(1) = _which;
+            for (int m = 0; m < _num_box; ++m)
+                if ((_player.y_axis - 2) == level.end[m][0] && _player.x_axis == level.end[m][1])
+                {
                     _box.lab[i]->setPixmap(pix_dark);
-                    if(!_bool_box[i]){
+                    if (!_bool_box[i])
+                    {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
-                        _bool_box[i]=true;
+                        _bool_box[i] = true;
                     }
-                    if(count == _num_box)
+                    if (count == _num_box)
                         emit next_signal();
                     break;
                 }
         }
     }
 
-    _player.y_axis -=1;
+    _player.y_axis -= 1;
     something_check();
-
 }
-void level_1::down(){
+void level_1::down()
+{
     ui->restartButton->show();
     level1 level;
-    char xy = level1_table.at(_player.y_axis+1).at(_player.x_axis).at(0);
+    char xy = level1_table.at(_player.y_axis + 1).at(_player.x_axis).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
 
-    if (xy=='W'||xy=='K')
+    if (xy == 'W' || xy == 'K')
         return;
-    if(xy=='B'){
-        char xy_plus_1 = level1_table.at(_player.y_axis+2).at(_player.x_axis).at(0);
-        if(xy_plus_1=='W'||xy_plus_1=='K'||xy_plus_1=='B')
+    if (xy == 'B')
+    {
+        char xy_plus_1 = level1_table.at(_player.y_axis + 2).at(_player.x_axis).at(0);
+        if (xy_plus_1 == 'W' || xy_plus_1 == 'K' || xy_plus_1 == 'B')
             return;
-        else{
-            char _which =level1_table.at(_player.y_axis+1).at(_player.x_axis).at(1);
-            int i = _which -'0';
-            _box.lab[i]->move((_player.x_axis)*one_pixel,(_player.y_axis+2)*one_pixel);
+        else
+        {
+            char _which = level1_table.at(_player.y_axis + 1).at(_player.x_axis).at(1);
+            int i = _which - '0';
+            _box.lab[i]->move((_player.x_axis) * one_pixel, (_player.y_axis + 2) * one_pixel);
 
-            level1_table.at(_player.y_axis+1).at(_player.x_axis).at(0)='0';
-            level1_table.at(_player.y_axis+2).at(_player.x_axis).at(0)='B';
-            level1_table.at(_player.y_axis+1).at(_player.x_axis).at(1)='0';
-            level1_table.at(_player.y_axis+2).at(_player.x_axis).at(1)=_which;
-            for(int m=0;m<_num_box;++m)
-                if((_player.y_axis+2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
+            level1_table.at(_player.y_axis + 1).at(_player.x_axis).at(0) = '0';
+            level1_table.at(_player.y_axis + 2).at(_player.x_axis).at(0) = 'B';
+            level1_table.at(_player.y_axis + 1).at(_player.x_axis).at(1) = '0';
+            level1_table.at(_player.y_axis + 2).at(_player.x_axis).at(1) = _which;
+            for (int m = 0; m < _num_box; ++m)
+                if ((_player.y_axis + 2) == level.end[m][0] && _player.x_axis == level.end[m][1])
+                {
                     _box.lab[i]->setPixmap(pix_dark);
-                    if(!_bool_box[i]){
+                    if (!_bool_box[i])
+                    {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
-                        _bool_box[i]=true;
+                        _bool_box[i] = true;
                     }
-                    if(count == _num_box)
+                    if (count == _num_box)
                         emit next_signal();
                     break;
                 }
         }
     }
 
-    _player.y_axis +=1;
+    _player.y_axis += 1;
     something_check();
 }
-void level_1::left(){
+void level_1::left()
+{
     ui->restartButton->show();
     level1 level;
-    char xy = level1_table.at(_player.y_axis).at(_player.x_axis-1).at(0);
+    char xy = level1_table.at(_player.y_axis).at(_player.x_axis - 1).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
-    QPixmap pix_pl_right(":/res/PNG/player.jpg");
-    _player.lab->setPixmap(pix_pl_right);
+    if (_background.eaten_level_1)
+    {
+        QPixmap pix_eaten(":/res/PNG/capoo_dog.png");
+        _player.lab->setPixmap(pix_eaten);
+    }
+    else
+    {
+        QPixmap pix_pl_right(":/res/PNG/player.jpg");
+        _player.lab->setPixmap(pix_pl_right);
+    }
 
-    if (xy=='W'||xy=='K')
+    if (xy == 'W' || xy == 'K')
         return;
-    if(xy=='B'){
-        char x_minus_1_y = level1_table.at(_player.y_axis).at(_player.x_axis-2).at(0);
-        if(x_minus_1_y=='W'||x_minus_1_y=='K'||x_minus_1_y=='B')
+    if (xy == 'B')
+    {
+        char x_minus_1_y = level1_table.at(_player.y_axis).at(_player.x_axis - 2).at(0);
+        if (x_minus_1_y == 'W' || x_minus_1_y == 'K' || x_minus_1_y == 'B')
             return;
-        else{
-            char _which =level1_table.at(_player.y_axis).at(_player.x_axis-1).at(1);
-            int i = _which -'0';
-            _box.lab[i]->move((_player.x_axis-2)*one_pixel,(_player.y_axis)*one_pixel);
+        else
+        {
+            char _which = level1_table.at(_player.y_axis).at(_player.x_axis - 1).at(1);
+            int i = _which - '0';
+            _box.lab[i]->move((_player.x_axis - 2) * one_pixel, (_player.y_axis) * one_pixel);
 
-            level1_table.at(_player.y_axis).at(_player.x_axis-1).at(0)='0';
-            level1_table.at(_player.y_axis).at(_player.x_axis-2).at(0)='B';
-            level1_table.at(_player.y_axis).at(_player.x_axis-1).at(1)='0';
-            level1_table.at(_player.y_axis).at(_player.x_axis-2).at(1)=_which;
-            for(int m=0;m<_num_box;++m)
-                if((_player.y_axis)==level.end[m][0]&&(_player.x_axis-2) ==level.end[m][1]){
+            level1_table.at(_player.y_axis).at(_player.x_axis - 1).at(0) = '0';
+            level1_table.at(_player.y_axis).at(_player.x_axis - 2).at(0) = 'B';
+            level1_table.at(_player.y_axis).at(_player.x_axis - 1).at(1) = '0';
+            level1_table.at(_player.y_axis).at(_player.x_axis - 2).at(1) = _which;
+            for (int m = 0; m < _num_box; ++m)
+                if ((_player.y_axis) == level.end[m][0] && (_player.x_axis - 2) == level.end[m][1])
+                {
                     _box.lab[i]->setPixmap(pix_dark);
-                    if(!_bool_box[i]){
+                    if (!_bool_box[i])
+                    {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
-                        _bool_box[i]=true;
+                        _bool_box[i] = true;
                     }
-                    if(count == _num_box)
+                    if (count == _num_box)
                         emit next_signal();
                     break;
                 }
         }
     }
 
-    _player.x_axis -=1;
+    _player.x_axis -= 1;
     something_check();
 }
-void level_1::right(){
+void level_1::right()
+{
     ui->restartButton->show();
     level1 level;
-    char xy = level1_table.at(_player.y_axis).at(_player.x_axis+1).at(0);
+    char xy = level1_table.at(_player.y_axis).at(_player.x_axis + 1).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
-    QPixmap pix_pl_right(":/res/PNG/player_r.png");
-    _player.lab->setPixmap(pix_pl_right);
 
-    if (xy=='W'||xy=='K')
+    if (_background.eaten_level_1)
+    {
+        QPixmap pix_eaten(":/res/PNG/capoo_dog_r.png");
+        _player.lab->setPixmap(pix_eaten);
+    }
+    else
+    {
+        QPixmap pix_pl_right(":/res/PNG/player_r.png");
+        _player.lab->setPixmap(pix_pl_right);
+    }
+
+    if (xy == 'W' || xy == 'K')
         return;
-    if(xy=='B'){
-        char x_plus_1_y = level1_table.at(_player.y_axis).at(_player.x_axis+2).at(0);
-        if(x_plus_1_y=='W'||x_plus_1_y=='K'||x_plus_1_y=='B')
+    if (xy == 'B')
+    {
+        char x_plus_1_y = level1_table.at(_player.y_axis).at(_player.x_axis + 2).at(0);
+        if (x_plus_1_y == 'W' || x_plus_1_y == 'K' || x_plus_1_y == 'B')
             return;
-        else{
-            char _which =level1_table.at(_player.y_axis).at(_player.x_axis+1).at(1);
-            int i = _which -'0';
-            _box.lab[i]->move((_player.x_axis+2)*one_pixel,(_player.y_axis)*one_pixel);
+        else
+        {
+            char _which = level1_table.at(_player.y_axis).at(_player.x_axis + 1).at(1);
+            int i = _which - '0';
+            _box.lab[i]->move((_player.x_axis + 2) * one_pixel, (_player.y_axis) * one_pixel);
 
-            level1_table.at(_player.y_axis).at(_player.x_axis+1).at(0)='0';
-            level1_table.at(_player.y_axis).at(_player.x_axis+2).at(0)='B';
-            level1_table.at(_player.y_axis).at(_player.x_axis+1).at(1)='0';
-            level1_table.at(_player.y_axis).at(_player.x_axis+2).at(1)=_which;
-            for(int m=0;m<_num_box;++m)
-                if((_player.y_axis)==level.end[m][0]&&(_player.x_axis+2) == level.end[m][1]){
+            level1_table.at(_player.y_axis).at(_player.x_axis + 1).at(0) = '0';
+            level1_table.at(_player.y_axis).at(_player.x_axis + 2).at(0) = 'B';
+            level1_table.at(_player.y_axis).at(_player.x_axis + 1).at(1) = '0';
+            level1_table.at(_player.y_axis).at(_player.x_axis + 2).at(1) = _which;
+            for (int m = 0; m < _num_box; ++m)
+                if ((_player.y_axis) == level.end[m][0] && (_player.x_axis + 2) == level.end[m][1])
+                {
                     _box.lab[i]->setPixmap(pix_dark);
-                    if(!_bool_box[i]){
+                    if (!_bool_box[i])
+                    {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
-                        _bool_box[i]=true;
+                        _bool_box[i] = true;
                     }
-                    if(count == _num_box)
+                    if (count == _num_box)
                         emit next_signal();
-                    qDebug() <<"here";
+                    qDebug() << "here";
                     break;
                 }
         }
@@ -231,48 +265,59 @@ void level_1::right(){
 
     something_check();
 }
-void level_1::restart(){
+void level_1::restart()
+{
     ui->restartButton->hide();
     level1 level;
 
     //reset count
     count = 0;
     //reset player
-        _player.lab->setGeometry(level._where_player[1]* one_pixel,level._where_player[0] * one_pixel, one_pixel, one_pixel);
-        //reset x_axis y_axis
-        _player.x_axis = 2;
-        _player.y_axis = 1;
+    _player.lab->setGeometry(level._where_player[1] * one_pixel, level._where_player[0] * one_pixel, one_pixel, one_pixel);
+    //reset x_axis y_axis
+    _player.x_axis = 2;
+    _player.y_axis = 1;
 
     //reset vector
     level1_table = level.table;
 
     //reset box
-        //reset box color
-    for (int a=0;a<_num_box;++a) {
+    //reset box color
+    for (int a = 0; a < _num_box; ++a)
+    {
         QPixmap pix_block(":/res/PNG/Crate_Brown.png");
         _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
         _box.lab[a]->setPixmap(pix_block);
         _box.lab[a]->setScaledContents(true);
     }
 
-
     //reset _bool_box
-    for(int i =0;i<_num_box;++i)
+    for (int i = 0; i < _num_box; ++i)
         _bool_box[i] = false;
     //reset step
-        step = 0;
-        ui->lcdNumber->display(step);
+    step = 0;
+    ui->lcdNumber->display(step);
     //next level
-        ui->nextButton->hide();
+    ui->nextButton->hide();
     //reset star
-        QPixmap pix_star(":/res/PNG/star_no.png");
-        for (int i =0;i<_num_box;++i) {
-           _star.lab[i]->setPixmap(pix_star);
-        }
-
-
+    QPixmap pix_star(":/res/PNG/star_no.png");
+    for (int i = 0; i <= _num_box; ++i)
+    {
+        _star.lab[i]->setPixmap(pix_star);
+    }
+    //reset you win
+    _background.you_win_level_1 = false;
+    //special
+    ui->specialButton->hide();
+    //eaten_level_1
+    _background.eaten_level_1 = false;
+    //reset player
+    QPixmap pix_pl_right(":/res/PNG/player.jpg");
+    _player.lab->setPixmap(pix_pl_right);
+    _player.lab_dog->show();
 }
-void level_1::next_level(){
+void level_1::next_level()
+{
 
     this->hide();
     _background._1_is_Opened = false;
@@ -281,44 +326,53 @@ void level_1::next_level(){
     _background._2_is_not_Finished = true;
     _background.where_am_i = 1;
 
-
-    tnd_level->resize(one_pixel*(_square_size+2),one_pixel*(_square_size+2));
+    tnd_level->resize(one_pixel * (_square_size + 2), one_pixel * (_square_size + 2));
     tnd_level->show();
     tnd_level->exec();
 
-    if(_background.where_am_i==2)
-        _background.is_exec_2 =true;
-
-
+    if (_background.where_am_i == 2)
+        _background.is_exec_2 = true;
 }
-void level_1::on_back_clicked(){
+void level_1::on_back_clicked()
+{
     _background._1_is_Opened = true;
     _background._1_is_not_Finished = true;
     _background._2_is_Opened = false;
-   _background._2_is_not_Finished = true;
-   _background.where_am_i = 1;
+    _background._2_is_not_Finished = true;
+    _background.where_am_i = 1;
     close();
 }
 
-void level_1::nextbuttom(){
-
+void level_1::nextbuttom()
+{
+    ++step;
+    _background.stop_step = step;
+    _background.you_win_level_1 = true;
+    ui->lcdNumber->display(_background.stop_step);
     ui->nextButton->show();
 }
 
-void level_1::special(){
+void level_1::special()
+{
     ui->specialButton->show();
-     QPixmap pix_star(":/res/PNG/star_sp.png");
+    QPixmap pix_star(":/res/PNG/star_sp.png");
     _star.lab[3]->setPixmap(pix_star);
-
 }
-void level_1::something_check(){
+void level_1::something_check()
+{
     level1 level;
-    _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
+    _player.lab->move(_player.x_axis * one_pixel, _player.y_axis * one_pixel);
     ++step;
-    ui->lcdNumber->display(step);
-    if(_player.x_axis==level.special_end[1]&&_player.y_axis==level.special_end[0])
-            emit special_signal();
+    if (_player.x_axis == level.dog[1] && _player.y_axis == level.dog[0])
+    {
+        QPixmap pix_eaten(":/res/PNG/capoo_dog.png");
+        _player.lab->setPixmap(pix_eaten);
+        _player.lab_dog->hide();
+        _background.eaten_level_1 = true;
+    }
+    if (!_background.you_win_level_1)
+        ui->lcdNumber->display(step);
+    if (_player.x_axis == level.special_end[1] && _player.y_axis == level.special_end[0])
+        emit special_signal();
     return;
 }
-
-

@@ -14,7 +14,8 @@
 #include "background.h"
 #include "star.h"
 
-namespace Ui {
+namespace Ui
+{
 class level_2;
 }
 
@@ -33,28 +34,27 @@ public:
     player _player;
     wall _wall;
     star _star;
-    int count =0;
+    int count = 0;
     /*
     static bool is_Opened;
     static bool is_not_Finished;
     */
     background _background;
-    int step =0;
+    int step = 0;
     void something_check();
-
 
 private:
     Ui::level_2 *ui;
-    vector<vector<vector<char>>> level2_table ={{{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'}},
-                                                {{'W','W'},{'K','K'},{'O','O'},{'O','O'},{'O','O'},{'O','O'},{'E','E'},{'W','W'}},
-                                                {{'W','W'},{'O','O'},{'O','O'},{'O','O'},{'O','O'},{'K','K'},{'K','K'},{'W','W'}},
-                                                {{'W','W'},{'O','O'},{'B','1'},{'K','K'},{'O','O'},{'O','O'},{'O','O'},{'W','W'}},
-                                                {{'W','W'},{'B','0'},{'O','O'},{'K','K'},{'O','O'},{'O','O'},{'O','O'},{'W','W'}},
-                                                {{'W','W'},{'P','P'},{'O','O'},{'K','K'},{'B','2'},{'O','O'},{'O','O'},{'W','W'}},
-                                                {{'W','W'},{'E','E'},{'O','O'},{'O','O'},{'O','O'},{'O','O'},{'E','E'},{'W','W'}},
-                                                {{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'},{'W','W'}}};
+    vector<vector<vector<char>>> level2_table = {{{'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'K', 'K'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'E', 'E'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'K', 'K'}, {'K', 'K'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'O', 'O'}, {'B', '1'}, {'K', 'K'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'B', '0'}, {'O', 'O'}, {'K', 'K'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'P', 'P'}, {'O', 'O'}, {'K', 'K'}, {'B', '2'}, {'O', 'O'}, {'O', 'O'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'E', 'E'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'O', 'O'}, {'E', 'E'}, {'W', 'W'}},
+                                                 {{'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}, {'W', 'W'}}};
     //int end[_num_box][2]={{5,1},{4,2},{6,5}};
-    bool _bool_box[_num_box]={false,false,false};
+    bool _bool_box[_num_box] = {false, false, false};
     QMainWindow *main;
     void on_Main_Menu_clicked();
 public slots:
@@ -77,7 +77,6 @@ signals:
     void next_signal();
     void end_signal();
     void special_signal();
-
 };
 
 #endif // LEVEL_2_H

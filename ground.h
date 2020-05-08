@@ -8,11 +8,9 @@ class ground : public QObject
     Q_OBJECT
 
 public:
-    ground(QWidget *,int);
+    ground(QWidget *, int);
     ground();
-    QLabel *lab[(_square_size*_square_size)];
-
-
+    QLabel *lab[(_square_size * _square_size)];
 };
 
 #endif // GROUND_H

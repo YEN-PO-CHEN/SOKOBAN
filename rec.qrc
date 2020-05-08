@@ -56,5 +56,8 @@
         <file>res/PNG/star_no.png</file>
         <file>res/PNG/star_yes.png</file>
         <file>res/PNG/star_sp.png</file>
+        <file>res/PNG/capoo_dog.png</file>
+        <file>res/PNG/dog.png</file>
+        <file>res/PNG/capoo_dog_r.png</file>
     </qresource>
 </RCC>
