@@ -17,7 +17,7 @@ public:
     static bool is_exec_2;
     static int x_axis;
     static int y_axis;
-
+    static int theme;
 private:
 
 };

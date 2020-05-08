@@ -22,6 +22,7 @@ SOURCES += \
     _end.cpp \
     _ground.cpp \
     _player.cpp \
+    _star.cpp \
     _wall.cpp \
     level_1.cpp \
     level_2.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     main.h \
     player.h \
     sokoban.h \
+    star.h \
     wall.h
 
 FORMS += \
@@ -54,3 +56,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     rec.qrc
+
+DISTFILES +=

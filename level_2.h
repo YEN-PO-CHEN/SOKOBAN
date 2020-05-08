@@ -12,6 +12,7 @@
 #include "player.h"
 #include "wall.h"
 #include "background.h"
+#include "star.h"
 
 namespace Ui {
 class level_2;
@@ -31,6 +32,7 @@ public:
     ground _ground;
     player _player;
     wall _wall;
+    star _star;
     int count =0;
     /*
     static bool is_Opened;
@@ -62,6 +64,8 @@ public slots:
     void restart();
     void end();
     void on_back_clicked();
+
+    void back();
 
 signals:
     void up_signal();

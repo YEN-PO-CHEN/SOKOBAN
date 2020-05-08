@@ -52,5 +52,8 @@
         <file>res/PNG/WallRound_Brown.png</file>
         <file>res/PNG/WallRound_Gray.png</file>
         <file>res/PNG/sokoban.png</file>
+        <file>res/PNG/player_r.png</file>
+        <file>res/PNG/star_no.png</file>
+        <file>res/PNG/star_yes.png</file>
     </qresource>
 </RCC>

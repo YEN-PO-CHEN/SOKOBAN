@@ -12,11 +12,15 @@ FirstWindow::FirstWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->startButton, SIGNAL(clicked()), this, SLOT(on_start_clicked()));
+    connect(ui->theme_1_Button, SIGNAL(clicked()), this, SLOT(on_theme_1_clicked()));
+    connect(ui->theme_2_Button, SIGNAL(clicked()), this, SLOT(on_theme_2_clicked()));
     connect(ui->level1Button, SIGNAL(clicked()), this, SLOT(on_level1_clicked()));
     connect(ui->level2Button, SIGNAL(clicked()), this, SLOT(on_level2_clicked()));
     connect(ui->exitButton, SIGNAL(clicked()), this, SLOT(on_exit_clicked()));
     ui->level1Button->hide();
     ui->level2Button->hide();
+    ui->theme_1_Button->hide();
+    ui->theme_2_Button->hide();
 }
 
 FirstWindow::~FirstWindow()
@@ -27,11 +31,28 @@ void FirstWindow::on_exit_clicked(){
     this->close();
 }
 void FirstWindow::on_start_clicked(){
-    ui->level1Button->show();
-    ui->level2Button->show();
+    _background.lab_back->hide();
+    ui->theme_1_Button->show();
+    ui->theme_2_Button->show();
     ui->startButton->hide();
 
 
+}
+void FirstWindow::on_theme_1_clicked(){
+    _background.theme = 1;
+    _background.lab_back->show();
+    ui->theme_1_Button->hide();
+    ui->theme_2_Button->hide();
+    ui->level1Button->show();
+    ui->level2Button->show();
+}
+void FirstWindow::on_theme_2_clicked(){
+    _background.theme = 2;
+    _background.lab_back->show();
+    ui->theme_1_Button->hide();
+    ui->theme_2_Button->hide();
+    ui->level1Button->show();
+    ui->level2Button->show();
 }
 void FirstWindow::on_level1_clicked(){
     this->hide();

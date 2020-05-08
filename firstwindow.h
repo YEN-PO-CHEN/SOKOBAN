@@ -22,6 +22,8 @@ public:
     background _background;
 private slots:
     void on_start_clicked();
+    void on_theme_1_clicked();
+    void on_theme_2_clicked();
     void on_exit_clicked();
     void on_level1_clicked();
     void on_level2_clicked();

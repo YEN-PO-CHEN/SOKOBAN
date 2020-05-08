@@ -9,7 +9,7 @@
 #include <QPixmap>
 #include <QVector>
 #include <QWidget>
-
+#include <QLCDNumber>
 
 #define one_pixel 100
 #define _square_size 8

@@ -9,6 +9,7 @@ level_2::level_2(QWidget *parent) :
     _ground(this,2),
     _player(this,2),
     _wall(this,2),
+    _star(this),
     _background(this,2),
     ui(new Ui::level_2)
 {
@@ -24,9 +25,12 @@ level_2::level_2(QWidget *parent) :
     connect(this, SIGNAL(right_signal()), this, SLOT(right()));
     connect(this, SIGNAL(left_signal()), this, SLOT(left()));
     connect(this, SIGNAL(restart_signal()),this,SLOT(restart()));
-    connect(this,SIGNAL(end_signal()),this,SLOT(end()));
+    connect(this,SIGNAL(end_signal()),this,SLOT(back()));
     connect(ui->menuButton, SIGNAL(clicked()), this, SLOT(on_back_clicked()));
     connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
+    connect(ui->backButton,SIGNAL(clicked()), this, SLOT(end()));
+    ui->backButton->hide();
+    ui->restartButton->hide();
 }
 
 level_2::~level_2()
@@ -59,6 +63,7 @@ void level_2::keyPressEvent(QKeyEvent *event)
     }
 }
 void level_2::up(){
+    ui->restartButton->show();
     level2 level;
     char xy = level2_table.at(_player.y_axis-1).at(_player.x_axis).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
@@ -82,6 +87,8 @@ void level_2::up(){
                 if((_player.y_axis-2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
                     if(!_bool_box[i]){
+                        QPixmap pix_star(":/res/PNG/star_yes.png");
+                        _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i]=true;
                     }
@@ -94,8 +101,11 @@ void level_2::up(){
 
     _player.y_axis -=1;
     _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
+    ++step;
+    ui->lcdNumber->display(step);
 }
 void level_2::down(){
+    ui->restartButton->show();
     level2 level;
     char xy = level2_table.at(_player.y_axis+1).at(_player.x_axis).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
@@ -119,6 +129,8 @@ void level_2::down(){
                 if((_player.y_axis+2)==level.end[m][0]&&_player.x_axis ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
                     if(!_bool_box[i]){
+                        QPixmap pix_star(":/res/PNG/star_yes.png");
+                        _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i]=true;
                     }
@@ -131,11 +143,16 @@ void level_2::down(){
 
     _player.y_axis +=1;
     _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
+    ++step;
+    ui->lcdNumber->display(step);
 }
 void level_2::left(){
+    ui->restartButton->show();
     level2 level;
     char xy = level2_table.at(_player.y_axis).at(_player.x_axis-1).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_pl_right(":/res/PNG/player.jpg");
+    _player.lab->setPixmap(pix_pl_right);
 
     if (xy=='W'||xy=='K')
         return;
@@ -156,6 +173,8 @@ void level_2::left(){
                 if((_player.y_axis)==level.end[m][0]&&(_player.x_axis-2) ==level.end[m][1]){
                     _box.lab[i]->setPixmap(pix_dark);
                     if(!_bool_box[i]){
+                        QPixmap pix_star(":/res/PNG/star_yes.png");
+                        _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i]=true;
                     }
@@ -168,11 +187,16 @@ void level_2::left(){
 
     _player.x_axis -=1;
     _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
+    ++step;
+    ui->lcdNumber->display(step);
 }
 void level_2::right(){
+    ui->restartButton->show();
     level2 level;
     char xy = level2_table.at(_player.y_axis).at(_player.x_axis+1).at(0);
     QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_pl_right(":/res/PNG/player_r.png");
+    _player.lab->setPixmap(pix_pl_right);
 
     if (xy=='W'||xy=='K')
         return;
@@ -194,6 +218,8 @@ void level_2::right(){
                     _box.lab[i]->setPixmap(pix_dark);
                     if(!_bool_box[i]){
                         if(!_bool_box[i]){
+                            QPixmap pix_star(":/res/PNG/star_yes.png");
+                            _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i]=true;
                     }
@@ -208,6 +234,8 @@ void level_2::right(){
 
     _player.x_axis += 1;
     _player.lab->move(_player.x_axis*one_pixel, _player.y_axis*one_pixel);
+    ++step;
+    ui->lcdNumber->display(step);
 }
 
 void level_2::on_back_clicked(){
@@ -222,8 +250,10 @@ void level_2::end(){
     _background._2_is_not_Finished = false;
     _background.where_am_i = 2;
     close();
+    ++step;
 }
 void level_2::restart(){
+    ui->restartButton->hide();
     level2 level;
 
     //reset count
@@ -239,8 +269,9 @@ void level_2::restart(){
 
     //reset box
         //reset box color
+    QPixmap pix_block(":/res/PNG/Crate_Brown.png");
     for (int a=0;a<_num_box;++a) {
-        QPixmap pix_block(":/res/PNG/Crate_Brown.png");
+
         _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
         _box.lab[a]->setPixmap(pix_block);
         _box.lab[a]->setScaledContents(true);
@@ -252,8 +283,19 @@ void level_2::restart(){
         _bool_box[i] = false;
     //reset step
         step = 0;
+        ui->lcdNumber->display(step);
+    //reset star
+        QPixmap pix_star(":/res/PNG/star_no.png");
+        for (int i =0;i<_num_box;++i) {
+           _star.lab[i]->setPixmap(pix_star);
+        }
+
 
 }
+void level_2::back(){
+    ui->backButton->show();
+}
+
 
 
 

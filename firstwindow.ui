@@ -99,6 +99,44 @@
      <string>LEVEL 2</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="theme_1_Button">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>130</y>
+      <width>151</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SetoFont</family>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>BROWN</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="theme_2_Button">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>130</y>
+      <width>151</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SetoFont</family>
+      <pointsize>25</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>BLACK</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

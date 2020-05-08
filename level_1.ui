@@ -62,6 +62,50 @@
     <string>RESTART</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="nextButton">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>800</y>
+     <width>201</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>LEVEL 2</string>
+   </property>
+  </widget>
+  <widget class="QLCDNumber" name="lcdNumber">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>710</y>
+     <width>200</width>
+     <height>90</height>
+    </rect>
+   </property>
+   <property name="smallDecimalPoint">
+    <bool>false</bool>
+   </property>
+   <property name="mode">
+    <enum>QLCDNumber::Dec</enum>
+   </property>
+   <property name="segmentStyle">
+    <enum>QLCDNumber::Filled</enum>
+   </property>
+   <property name="value" stdset="0">
+    <double>0.000000000000000</double>
+   </property>
+   <property name="intValue" stdset="0">
+    <number>0</number>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
