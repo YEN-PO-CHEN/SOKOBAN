@@ -30,7 +30,8 @@ private slots:
     void on_exit_clicked();
     void on_level1_clicked();
     void on_level2_clicked();
-
+signals:
+    void theme_to_start_signal();
 private:
     Ui::FirstWindow *ui;
     level_1 *fst_level = new level_1;

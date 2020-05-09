@@ -85,9 +85,6 @@
      <height>100</height>
     </rect>
    </property>
-   <property name="value" stdset="0">
-    <double>100.000000000000000</double>
-   </property>
   </widget>
   <widget class="QPushButton" name="specialButton">
    <property name="geometry">
@@ -106,25 +103,6 @@
    </property>
    <property name="text">
     <string>SPECIAL END！</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>810</x>
-     <y>700</y>
-     <width>60</width>
-     <height>100</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>SetoFont</family>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>STEP</string>
    </property>
   </widget>
  </widget>

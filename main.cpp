@@ -10,6 +10,8 @@ bool background::you_win_level_1 = false;
 bool background::you_win_level_2 = false;
 bool background::eaten_level_1 = false;
 bool background::eaten_level_2 = false;
+bool background::sp_win_level_1 = false;
+bool background::sp_win_level_2 = false;
 
 int background::where_am_i = 0;
 int background::x_axis = 0;

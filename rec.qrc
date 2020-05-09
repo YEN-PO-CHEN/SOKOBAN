@@ -59,5 +59,8 @@
         <file>res/PNG/capoo_dog.png</file>
         <file>res/PNG/dog.png</file>
         <file>res/PNG/capoo_dog_r.png</file>
+        <file>res/PNG/capoo_400_300.gif</file>
+        <file>res/PNG/capoo_392_316.gif</file>
+        <file>res/PNG/rule.png</file>
     </qresource>
 </RCC>

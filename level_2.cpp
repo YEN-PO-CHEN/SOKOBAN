@@ -326,12 +326,16 @@ void level_2::restart()
 
     //reset you win
     _background.you_win_level_2 = false;
+    _background.sp_win_level_2 = false;
     //eaten_level_1
     _background.eaten_level_2 = false;
     //reset player
     QPixmap pix_pl_right(":/res/PNG/player.jpg");
     _player.lab->setPixmap(pix_pl_right);
     _player.lab_dog->show();
+    //hide you win
+    _background.lab_you_win->hide();
+    _background.lab_special_win->hide();
 }
 void level_2::back()
 {
@@ -339,6 +343,10 @@ void level_2::back()
     _background.you_win_level_2 = true;
     _background.stop_step = step;
     ui->lcdNumber->display(_background.stop_step);
+    if (!_background.sp_win_level_2)
+        _background.lab_you_win->show();
+    else
+        _background.lab_you_win->hide();
     ui->backButton->show();
 }
 void level_2::special()
@@ -346,6 +354,8 @@ void level_2::special()
     ui->specialButton->show();
     QPixmap pix_star(":/res/PNG/star_sp.png");
     _star.lab[3]->setPixmap(pix_star);
+    _background.sp_win_level_2 = true;
+    _background.lab_special_win->show();
 }
 void level_2::something_check()
 {

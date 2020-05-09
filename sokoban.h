@@ -10,7 +10,8 @@
 #include <QVector>
 #include <QWidget>
 #include <QLCDNumber>
-
+#include <QString>
+#include <QMovie>
 #define one_pixel 100
 #define _square_size 8
 #define _num_box 3
