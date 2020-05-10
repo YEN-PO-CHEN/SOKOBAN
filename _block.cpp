@@ -13,13 +13,14 @@ block::block(QWidget *here, int lev)
         for (int x = 0; x < (_square_size); ++x)
             for (int y = 0; y < (_square_size); ++y)
             {
-                if (level.table.at(y).at(x).at(0) != 'K')
-                    continue;
-                lab[x * y] = new QLabel(here);
-                lab[x * y]->setGeometry(x * one_pixel, y * one_pixel, one_pixel, one_pixel);
-                lab[x * y]->setPixmap(pix_block);
 
-                lab[x * y]->setScaledContents(true);
+                lab[y * _square_size + x] = new QLabel(here);
+                lab[y * _square_size + x]->setGeometry(x * one_pixel, y * one_pixel, one_pixel, one_pixel);
+                lab[y * _square_size + x]->setPixmap(pix_block);
+
+                lab[y * _square_size + x]->setScaledContents(true);
+                if (level.table.at(y).at(x).at(0) != 'K')
+                    lab[y * _square_size + x]->hide();
             }
     }
 
@@ -30,13 +31,14 @@ block::block(QWidget *here, int lev)
         for (int x = 0; x < (_square_size); ++x)
             for (int y = 0; y < (_square_size); ++y)
             {
+                lab[y * _square_size + x] = new QLabel(here);
+                lab[y * _square_size + x]->setGeometry(x * one_pixel, y * one_pixel, one_pixel, one_pixel);
+                lab[y * _square_size + x]->setPixmap(pix_block);
+                lab[y * _square_size + x]->setScaledContents(true);
                 if (level.table.at(y).at(x).at(0) != 'K')
-                    continue;
-                lab[x * y] = new QLabel(here);
-                lab[x * y]->setGeometry(x * one_pixel, y * one_pixel, one_pixel, one_pixel);
-                lab[x * y]->setPixmap(pix_block);
-
-                lab[x * y]->setScaledContents(true);
+                {
+                    lab[y * _square_size + x]->hide();
+                }
             }
     }
 }

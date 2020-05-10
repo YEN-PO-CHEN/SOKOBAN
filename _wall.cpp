@@ -2,10 +2,9 @@
 #include "main.h"
 #include "sokoban.h"
 
-wall::wall(QWidget *here, int lev)
+wall::wall(QWidget *here)
 {
     QPixmap pix_wall(":/res/PNG/Wall_Brown.png");
-    lev = 0;
     level1 level;
     int i = 0;
     for (int x = 0; x < (_square_size); ++x)

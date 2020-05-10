@@ -42,7 +42,7 @@
    <property name="geometry">
     <rect>
      <x>800</x>
-     <y>200</y>
+     <y>400</y>
      <width>200</width>
      <height>200</height>
     </rect>
@@ -61,7 +61,7 @@
    <property name="geometry">
     <rect>
      <x>800</x>
-     <y>500</y>
+     <y>800</y>
      <width>200</width>
      <height>200</height>
     </rect>
@@ -86,13 +86,13 @@
     </rect>
    </property>
    <property name="value" stdset="0">
-    <double>100.000000000000000</double>
+    <double>0.000000000000000</double>
    </property>
   </widget>
   <widget class="QPushButton" name="specialButton">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>400</x>
      <y>800</y>
      <width>400</width>
      <height>200</height>
@@ -125,6 +125,44 @@
    </property>
    <property name="text">
     <string>STEP</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blackButton">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>200</y>
+     <width>200</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>BLACK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="brownButton">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>300</y>
+     <width>200</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>SetoFont</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>BROWN</string>
    </property>
   </widget>
  </widget>

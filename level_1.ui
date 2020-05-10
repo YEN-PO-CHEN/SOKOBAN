@@ -190,7 +190,7 @@
     <string>STEP</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="blackButton">
    <property name="geometry">
     <rect>
      <x>800</x>
@@ -203,7 +203,7 @@
     <string>BLACK</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="brownButton">
    <property name="geometry">
     <rect>
      <x>800</x>

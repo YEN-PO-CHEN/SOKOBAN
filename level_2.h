@@ -67,6 +67,8 @@ public slots:
     void on_back_clicked();
     void special();
     void back();
+    void black_change();
+    void brown_change();
 
 signals:
     void up_signal();

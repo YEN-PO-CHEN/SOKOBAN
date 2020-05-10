@@ -32,6 +32,7 @@ private slots:
     void on_level2_clicked();
 signals:
     void theme_to_start_signal();
+
 private:
     Ui::FirstWindow *ui;
     level_1 *fst_level = new level_1;

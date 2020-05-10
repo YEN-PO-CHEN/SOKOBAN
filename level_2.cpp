@@ -7,7 +7,7 @@ level_2::level_2(QWidget *parent) : QDialog(parent),
                                     _box(this, 2),
                                     _ground(this, 2),
                                     _player(this, 2),
-                                    _wall(this, 2),
+                                    _wall(this),
                                     _star(this),
                                     _background(this, 2),
                                     ui(new Ui::level_2)
@@ -24,11 +24,13 @@ level_2::level_2(QWidget *parent) : QDialog(parent),
     connect(this, SIGNAL(left_signal()), this, SLOT(left()));
     connect(this, SIGNAL(restart_signal()), this, SLOT(restart()));
     connect(this, SIGNAL(end_signal()), this, SLOT(back()));
+    connect(this, SIGNAL(special_signal()), this, SLOT(special()));
     connect(ui->menuButton, SIGNAL(clicked()), this, SLOT(on_back_clicked()));
     connect(ui->restartButton, SIGNAL(clicked()), this, SLOT(restart()));
     connect(ui->backButton, SIGNAL(clicked()), this, SLOT(end()));
-    connect(this, SIGNAL(special_signal()), this, SLOT(special()));
     connect(ui->specialButton, SIGNAL(clicked()), this, SLOT(end()));
+    connect(ui->blackButton, SIGNAL(clicked()), this, SLOT(black_change()));
+    connect(ui->brownButton, SIGNAL(clicked()), this, SLOT(brown_change()));
     ui->backButton->hide();
     ui->restartButton->hide();
     ui->specialButton->hide();
@@ -374,4 +376,107 @@ void level_2::something_check()
     if (_player.x_axis == level.special_end[1] && _player.y_axis == level.special_end[0])
         emit special_signal();
     return;
+}
+
+void level_2::black_change()
+{
+
+    _background.theme = 2;
+    QPixmap pix_block(":/res/PNG/WallRound_Gray.png");
+    QPixmap pix_box(":/res/PNG/Crate_Black.png");
+    QPixmap pix_end(":/res/PNG/EndPoint_Gray.png");
+    QPixmap pix_ground(":/res/PNG/Ground_Concrete.png");
+    QPixmap pix_wall(":/res/PNG/Wall_Black.png");
+    level2 level;
+    //block
+    for (int x = 0; x < (_square_size); ++x)
+    {
+        for (int y = 0; y < (_square_size); ++y)
+        {
+            if (level.table.at(y).at(x).at(1) != 'K')
+                continue;
+            _block.lab[y * _square_size + x]->setPixmap(pix_block);
+            _block.lab[y * _square_size + x]->show();
+        }
+    }
+
+    //box
+    for (int m = 0; m < _num_box; ++m)
+    {
+        _box.lab[m]->setPixmap(pix_box);
+        _box.lab[m]->show();
+    }
+
+    //end
+    for (int m = 0; m < _num_box; ++m)
+    {
+        _end.lab[m]->setPixmap(pix_end);
+        _end.lab[m]->show();
+    }
+
+    //ground
+    for (int m = 0; m < (_square_size * _square_size); ++m)
+    {
+        _ground.lab[m]->setPixmap(pix_ground);
+        _ground.lab[m]->show();
+    }
+
+    //wall
+    for (int m = 0; m < ((_square_size - 1) * 4); ++m)
+    {
+        _wall.lab[m]->setPixmap(pix_wall);
+        _wall.lab[m]->show();
+    }
+}
+
+void level_2::brown_change()
+{
+    _background.theme = 1;
+    QPixmap pix_block(":/res/PNG/WallRound_Beige.png");
+    QPixmap pix_box(":/res/PNG/Crate_Brown.png");
+    QPixmap pix_end(":/res/PNG/EndPoint_Brown.png");
+    QPixmap pix_ground(":/res/PNG/Ground_Sand.png");
+    QPixmap pix_wall(":/res/PNG/Wall_Brown.png");
+
+    level2 level;
+    //block
+    for (int x = 0; x < (_square_size); ++x)
+    {
+        for (int y = 0; y < (_square_size); ++y)
+        {
+            if (level.table.at(y).at(x).at(0) != 'K')
+                continue;
+
+            _block.lab[y * _square_size + x]->setPixmap(pix_block);
+            _block.lab[y * _square_size + x]->show();
+        }
+    }
+
+    //box
+    for (int m = 0; m < _num_box; ++m)
+    {
+        _box.lab[m]->setPixmap(pix_box);
+        _box.lab[m]->show();
+    }
+
+    //end
+    for (int m = 0; m < _num_box; ++m)
+    {
+        _end.lab[m]->setPixmap(pix_end);
+        _end.lab[m]->show();
+    }
+
+    //ground
+    for (int m = 0; m < (_square_size * _square_size); ++m)
+    {
+        _ground.lab[m]->setPixmap(pix_ground);
+        _ground.lab[m]->show();
+    }
+
+    //wall
+    for (int m = 0; m < ((_square_size - 1) * 4); ++m)
+    {
+        _wall.lab[m]->setPixmap(pix_wall);
+        _wall.lab[m]->show();
+    }
 }
