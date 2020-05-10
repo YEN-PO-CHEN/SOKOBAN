@@ -12,12 +12,9 @@ FirstWindow::FirstWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->startButton, SIGNAL(clicked()), this, SLOT(on_start_clicked()));
-
     connect(this, SIGNAL(theme_to_start_signal()), this, SLOT(on_theme_1_clicked()));
-
     connect(ui->theme_1_Button, SIGNAL(clicked()), this, SLOT(on_theme_1_clicked()));
     connect(ui->theme_2_Button, SIGNAL(clicked()), this, SLOT(on_theme_2_clicked()));
-
     connect(ui->level1Button, SIGNAL(clicked()), this, SLOT(on_level1_clicked()));
     connect(ui->level2Button, SIGNAL(clicked()), this, SLOT(on_level2_clicked()));
     connect(ui->exitButton, SIGNAL(clicked()), this, SLOT(on_exit_clicked()));

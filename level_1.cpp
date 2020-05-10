@@ -6,9 +6,9 @@
 level_1::level_1(QWidget *parent) : QDialog(parent),
                                     _block(this, 1),
                                     _end(this, 1),
+                                    _player(this, 1),
                                     _box(this, 1),
                                     _ground(this, 1),
-                                    _player(this, 1),
                                     _wall(this),
                                     _star(this),
                                     _background(this, 1),
@@ -70,7 +70,8 @@ void level_1::up()
 
     level1 level;
     char xy = level1_table.at(_player.y_axis - 1).at(_player.x_axis).at(0);
-    QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_d_t_1(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_d_t_2(":/res/PNG/CrateDark_Black.png");
 
     if (xy == 'W' || xy == 'K')
         return;
@@ -92,7 +93,10 @@ void level_1::up()
             for (int m = 0; m < _num_box; ++m)
                 if ((_player.y_axis - 2) == level.end[m][0] && _player.x_axis == level.end[m][1])
                 {
-                    _box.lab[i]->setPixmap(pix_dark);
+                    if (_background.theme == 1)
+                        _box.lab[i]->setPixmap(pix_d_t_1);
+                    if (_background.theme == 2)
+                        _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
@@ -115,7 +119,9 @@ void level_1::down()
     ui->restartButton->show();
     level1 level;
     char xy = level1_table.at(_player.y_axis + 1).at(_player.x_axis).at(0);
-    QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
+
+    QPixmap pix_d_t_1(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_d_t_2(":/res/PNG/CrateDark_Black.png");
 
     if (xy == 'W' || xy == 'K')
         return;
@@ -137,7 +143,10 @@ void level_1::down()
             for (int m = 0; m < _num_box; ++m)
                 if ((_player.y_axis + 2) == level.end[m][0] && _player.x_axis == level.end[m][1])
                 {
-                    _box.lab[i]->setPixmap(pix_dark);
+                    if (_background.theme == 1)
+                        _box.lab[i]->setPixmap(pix_d_t_1);
+                    if (_background.theme == 2)
+                        _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
@@ -160,7 +169,10 @@ void level_1::left()
     ui->restartButton->show();
     level1 level;
     char xy = level1_table.at(_player.y_axis).at(_player.x_axis - 1).at(0);
-    QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
+
+    QPixmap pix_d_t_1(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_d_t_2(":/res/PNG/CrateDark_Black.png");
+
     if (_background.eaten_level_1)
     {
         QPixmap pix_eaten(":/res/PNG/capoo_dog.png");
@@ -192,7 +204,10 @@ void level_1::left()
             for (int m = 0; m < _num_box; ++m)
                 if ((_player.y_axis) == level.end[m][0] && (_player.x_axis - 2) == level.end[m][1])
                 {
-                    _box.lab[i]->setPixmap(pix_dark);
+                    if (_background.theme == 1)
+                        _box.lab[i]->setPixmap(pix_d_t_1);
+                    if (_background.theme == 2)
+                        _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
@@ -215,7 +230,6 @@ void level_1::right()
     ui->restartButton->show();
     level1 level;
     char xy = level1_table.at(_player.y_axis).at(_player.x_axis + 1).at(0);
-    QPixmap pix_dark(":/res/PNG/CrateDark_Brown.png");
 
     if (_background.eaten_level_1)
     {
@@ -230,6 +244,10 @@ void level_1::right()
 
     if (xy == 'W' || xy == 'K')
         return;
+
+    QPixmap pix_d_t_1(":/res/PNG/CrateDark_Brown.png");
+    QPixmap pix_d_t_2(":/res/PNG/CrateDark_Black.png");
+
     if (xy == 'B')
     {
         char x_plus_1_y = level1_table.at(_player.y_axis).at(_player.x_axis + 2).at(0);
@@ -248,7 +266,11 @@ void level_1::right()
             for (int m = 0; m < _num_box; ++m)
                 if ((_player.y_axis) == level.end[m][0] && (_player.x_axis + 2) == level.end[m][1])
                 {
-                    _box.lab[i]->setPixmap(pix_dark);
+                    if (_background.theme == 1)
+                        _box.lab[i]->setPixmap(pix_d_t_1);
+                    if (_background.theme == 2)
+                        _box.lab[i]->setPixmap(pix_d_t_2);
+
                     if (!_bool_box[i])
                     {
                         QPixmap pix_star(":/res/PNG/star_yes.png");
@@ -286,12 +308,27 @@ void level_1::restart()
 
     //reset box
     //reset box color
-    for (int a = 0; a < _num_box; ++a)
+    if (_background.theme == 1)
     {
-        QPixmap pix_block(":/res/PNG/Crate_Brown.png");
-        _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
-        _box.lab[a]->setPixmap(pix_block);
-        _box.lab[a]->setScaledContents(true);
+        for (int a = 0; a < _num_box; ++a)
+        {
+            QPixmap pix_block(":/res/PNG/Crate_Brown.png");
+            _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
+            _box.lab[a]->setPixmap(pix_block);
+            _box.lab[a]->setScaledContents(true);
+            _box.lab[a]->raise();
+        }
+    }
+    if (_background.theme == 2)
+    {
+        for (int a = 0; a < _num_box; ++a)
+        {
+            QPixmap pix_block(":/res/PNG/Crate_Black.png");
+            _box.lab[a]->setGeometry(level.box[a][1] * one_pixel, level.box[a][0] * one_pixel, one_pixel, one_pixel);
+            _box.lab[a]->setPixmap(pix_block);
+            _box.lab[a]->setScaledContents(true);
+            _box.lab[a]->raise();
+        }
     }
 
     //reset _bool_box
@@ -350,7 +387,6 @@ void level_1::on_back_clicked()
     _background.where_am_i = 1;
     close();
 }
-
 void level_1::nextbuttom()
 {
     ++step;
@@ -363,7 +399,6 @@ void level_1::nextbuttom()
     else
         _background.lab_you_win->hide();
 }
-
 void level_1::special()
 {
     ui->specialButton->show();
@@ -390,16 +425,16 @@ void level_1::something_check()
         emit special_signal();
     return;
 }
-
 void level_1::black_change()
 {
-
     _background.theme = 2;
     QPixmap pix_block(":/res/PNG/WallRound_Gray.png");
     QPixmap pix_box(":/res/PNG/Crate_Black.png");
+    QPixmap pix_box_Dark(":/res/PNG/CrateDark_Black.png");
     QPixmap pix_end(":/res/PNG/EndPoint_Gray.png");
     QPixmap pix_ground(":/res/PNG/Ground_Concrete.png");
     QPixmap pix_wall(":/res/PNG/Wall_Black.png");
+
     level1 level;
     //block
     for (int x = 0; x < (_square_size); ++x)
@@ -416,7 +451,10 @@ void level_1::black_change()
     //box
     for (int m = 0; m < _num_box; ++m)
     {
-        _box.lab[m]->setPixmap(pix_box);
+        if (_bool_box[m]) //true
+            _box.lab[m]->setPixmap(pix_box_Dark);
+        else
+            _box.lab[m]->setPixmap(pix_box);
         _box.lab[m]->show();
     }
 
@@ -441,12 +479,12 @@ void level_1::black_change()
         _wall.lab[m]->show();
     }
 }
-
 void level_1::brown_change()
 {
     _background.theme = 1;
     QPixmap pix_block(":/res/PNG/WallRound_Beige.png");
     QPixmap pix_box(":/res/PNG/Crate_Brown.png");
+    QPixmap pix_box_Dark(":/res/PNG/CrateDark_Brown.png");
     QPixmap pix_end(":/res/PNG/EndPoint_Brown.png");
     QPixmap pix_ground(":/res/PNG/Ground_Sand.png");
     QPixmap pix_wall(":/res/PNG/Wall_Brown.png");
@@ -468,7 +506,10 @@ void level_1::brown_change()
     //box
     for (int m = 0; m < _num_box; ++m)
     {
-        _box.lab[m]->setPixmap(pix_box);
+        if (_bool_box[m])
+            _box.lab[m]->setPixmap(pix_box_Dark);
+        else
+            _box.lab[m]->setPixmap(pix_box);
         _box.lab[m]->show();
     }
 

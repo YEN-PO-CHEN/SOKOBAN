@@ -30,9 +30,10 @@ public:
     void keyPressEvent(QKeyEvent *e);
     block _block;
     end_space _end;
+    player _player;
     box _box;
     ground _ground;
-    player _player;
+
     wall _wall;
     star _star;
     int count = 0;

@@ -22,6 +22,7 @@ box::box(QWidget *here, int lev)
                 lab[i]->setPixmap(pix_block);
                 lab[i]->raise();
                 lab[i]->setScaledContents(true);
+
                 ++i;
             }
     }
@@ -40,6 +41,7 @@ box::box(QWidget *here, int lev)
                 lab[i]->setGeometry(x * one_pixel, y * one_pixel, one_pixel, one_pixel);
                 lab[i]->setPixmap(pix_block);
                 lab[i]->setScaledContents(true);
+                lab[i]->raise();
                 ++i;
             }
     }

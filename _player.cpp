@@ -36,6 +36,6 @@ player::player(QWidget *here, int lev)
     //player
     lab->setPixmap(pix_player);
     lab->show();
-    lab->raise();
+    //lab->raise();
     lab->setScaledContents(true);
 }
