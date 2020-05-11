@@ -12,27 +12,28 @@
 ## Basic
 
 1. Build map
-- - Map 6 x 6(squares)
-- - storage location : 3
-- - box : 3
+    - Map 6 x 6(squares)
+    - storage location : 3
+    - box : 3
 
 2. Player can be controlled 
 3. Playable & follow the rules
 4. Restart game
-- - 當我動第一步的時候，restart 才會出現。
+    - 當我動第一步的時候，restart 才會出現。
 5. Levels
-- - 2 level
-- - Can go to next level when clear the stage
+    - 2 levels
+    - Can go to next level when clear the stage
 
 ## Feature
-
-### Main MENU
+#### Main MENU:
 - 離開遊戲(EXIT)
 - 開始遊戲(START)
-- - 當點選遊戲開始時，會跳出遊戲玩法，在按出Next時，則會跳出LEVEL1與LEVEL2,得以選擇進入哪一關。
-### The number od steps:
+    - 當點選遊戲開始時，會跳出遊戲玩法，在按出Next時，則會跳出LEVEL1與LEVEL2,得以選擇進入哪一關。
+
+#### The number od steps:
 - 顯示在右下角。
-### Other special methods:
+
+#### Other special methods:
 - 當我經過地圖上某一點後，便會是Special End 進入下一關。
 
 ## Bonus
