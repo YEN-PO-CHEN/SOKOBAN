@@ -390,6 +390,8 @@ void level_1::on_back_clicked()
 void level_1::nextbuttom()
 {
     ++step;
+    //return the theme because the initiation is brown
+    _background.theme = 1;
     _background.stop_step = step;
     _background.you_win_level_1 = true;
     ui->lcdNumber->display(_background.stop_step);
