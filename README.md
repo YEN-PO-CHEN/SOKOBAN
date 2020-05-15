@@ -1,5 +1,5 @@
-SOKOBAN 實作
-====
+# SOKOBAN 實作
+
 ## CORE
 - Programming language : cpp
 - Programming language version gcc 7.1.0
@@ -43,8 +43,9 @@ SOKOBAN 實作
 4. 當箱子被推到結束點的時候，下面的黃色星星便會亮起。
 5. 當箱子被推到結束點的時候，箱子會變暗。
 6. 當隱藏的點被採到的時候， 下面的紅色星星便會亮起。
-
-## 圖片來源
-- 亞拉 <https://home.gamer.com.tw/homeindex.php?owner=c11403>
-- 網路資料
-*非做商業用途*
+7. 加入聲音
+    - 行走時
+    - 正確通關時
+    - 採到SPECIAL END時
+    - 吃到狗狗
+    - 按按鈕時。

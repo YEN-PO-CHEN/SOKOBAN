@@ -16,7 +16,7 @@ background::background(QWidget *here, int i)
     lab_back->setScaledContents(true);
 
     //capoo gif
-
+    //Chen Yen Po 的 PROJECT 2
     QMovie *movie_capoo_gif_400_300 = new QMovie(":/res/PNG/capoo_392_316.gif");
     lab_capoo_gif = new QLabel(here);
     lab_capoo_gif->setGeometry(1060, 130, 392, 316);
@@ -55,4 +55,28 @@ background::background(QWidget *here, int i)
     lab_special_win->setGeometry(810, 350, 200, 200);
     lab_special_win->setFont(font_SP);
     lab_special_win->hide();
+    //sound
+    poke = new QMediaPlayer;
+    poke->setMedia(QUrl("qrc:/res/MP3/poke.mp3"));
+    poke->setVolume(30);
+
+    running = new QMediaPlayer;
+    running->setMedia(QUrl("qrc:/res/MP3/running.mp3"));
+    running->setVolume(20);
+
+    eating = new QMediaPlayer;
+    eating->setMedia(QUrl("qrc:/res/MP3/eating.mp3"));
+    eating->setVolume(30);
+
+    select = new QMediaPlayer;
+    select->setMedia(QUrl("qrc:/res/MP3/select.mp3"));
+    select->setVolume(30);
+
+    special_open = new QMediaPlayer;
+    special_open->setMedia(QUrl("qrc:/res/MP3/iron_door2_O.mp3"));
+    special_open->setVolume(50);
+
+    bravo = new QMediaPlayer;
+    bravo->setMedia(QUrl("qrc:/res/MP3/clapping_bravo.mp3"));
+    bravo->setVolume(50);
 }

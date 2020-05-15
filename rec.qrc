@@ -62,5 +62,11 @@
         <file>res/PNG/capoo_400_300.gif</file>
         <file>res/PNG/capoo_392_316.gif</file>
         <file>res/PNG/rule.png</file>
+        <file>res/MP3/poke.mp3</file>
+        <file>res/MP3/eating.mp3</file>
+        <file>res/MP3/running.mp3</file>
+        <file>res/MP3/select.mp3</file>
+        <file>res/MP3/iron_door2_O.mp3</file>
+        <file>res/MP3/clapping_bravo.mp3</file>
     </qresource>
 </RCC>

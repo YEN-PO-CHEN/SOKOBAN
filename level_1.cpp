@@ -99,6 +99,8 @@ void level_1::up()
                         _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
@@ -149,6 +151,8 @@ void level_1::down()
                         _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
@@ -210,6 +214,8 @@ void level_1::left()
                         _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
@@ -255,6 +261,7 @@ void level_1::right()
             return;
         else
         {
+
             char _which = level1_table.at(_player.y_axis).at(_player.x_axis + 1).at(1);
             int i = _which - '0';
             _box.lab[i]->move((_player.x_axis + 2) * one_pixel, (_player.y_axis) * one_pixel);
@@ -273,6 +280,8 @@ void level_1::right()
 
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
@@ -280,7 +289,7 @@ void level_1::right()
                     }
                     if (count == _num_box)
                         emit next_signal();
-                    qDebug() << "here";
+                    //qDebug() << "here";
                     break;
                 }
         }
@@ -292,6 +301,8 @@ void level_1::right()
 }
 void level_1::restart()
 {
+    _background.select->stop();
+    _background.select->play();
     ui->restartButton->hide();
     level1 level;
 
@@ -363,7 +374,9 @@ void level_1::restart()
 }
 void level_1::next_level()
 {
-
+    _background.bravo->stop();
+    _background.select->stop();
+    _background.select->play();
     this->hide();
     _background._1_is_Opened = false;
     _background._1_is_not_Finished = false;
@@ -380,6 +393,8 @@ void level_1::next_level()
 }
 void level_1::on_back_clicked()
 {
+    _background.select->stop();
+    _background.select->play();
     _background._1_is_Opened = true;
     _background._1_is_not_Finished = true;
     _background._2_is_Opened = false;
@@ -389,6 +404,8 @@ void level_1::on_back_clicked()
 }
 void level_1::nextbuttom()
 {
+
+    _background.bravo->play();
     ++step;
     //return the theme because the initiation is brown
     _background.theme = 1;
@@ -403,6 +420,7 @@ void level_1::nextbuttom()
 }
 void level_1::special()
 {
+    _background.special_open->play();
     ui->specialButton->show();
     _background.sp_win_level_1 = true;
     _background.lab_special_win->show();
@@ -412,10 +430,14 @@ void level_1::special()
 void level_1::something_check()
 {
     level1 level;
+    _background.running->stop();
+    _background.running->play();
     _player.lab->move(_player.x_axis * one_pixel, _player.y_axis * one_pixel);
     ++step;
     if (_player.x_axis == level.dog[1] && _player.y_axis == level.dog[0])
     {
+        if(!_background.eaten_level_1)
+            _background.eating->play();
         QPixmap pix_eaten(":/res/PNG/capoo_dog.png");
         _player.lab->setPixmap(pix_eaten);
         _player.lab_dog->hide();
@@ -429,6 +451,8 @@ void level_1::something_check()
 }
 void level_1::black_change()
 {
+    _background.select->stop();
+    _background.select->play();
     _background.theme = 2;
     QPixmap pix_block(":/res/PNG/WallRound_Gray.png");
     QPixmap pix_box(":/res/PNG/Crate_Black.png");
@@ -483,6 +507,8 @@ void level_1::black_change()
 }
 void level_1::brown_change()
 {
+    _background.select->stop();
+    _background.select->play();
     _background.theme = 1;
     QPixmap pix_block(":/res/PNG/WallRound_Beige.png");
     QPixmap pix_box(":/res/PNG/Crate_Brown.png");

@@ -99,13 +99,17 @@ void level_2::up()
                         _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i] = true;
                     }
-                    if (count == _num_box)
+                    if (count == _num_box){
+                        _background.bravo->play();
                         emit end_signal();
+                    }
                     break;
                 }
         }
@@ -148,13 +152,17 @@ void level_2::down()
                         _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i] = true;
                     }
-                    if (count == _num_box)
+                    if (count == _num_box){
+                        _background.bravo->play();
                         emit end_signal();
+                    }
                     break;
                 }
         }
@@ -207,13 +215,17 @@ void level_2::left()
                         _box.lab[i]->setPixmap(pix_d_t_2);
                     if (!_bool_box[i])
                     {
+                        _background.poke->stop();
+                        _background.poke->play();
                         QPixmap pix_star(":/res/PNG/star_yes.png");
                         _star.lab[i]->setPixmap(pix_star);
                         ++count;
                         _bool_box[i] = true;
                     }
-                    if (count == _num_box)
+                    if (count == _num_box){
+                        _background.bravo->play();
                         emit end_signal();
+                    }
                     break;
                 }
         }
@@ -268,6 +280,8 @@ void level_2::right()
                     {
                         if (!_bool_box[i])
                         {
+                            _background.poke->stop();
+                            _background.poke->play();
                             QPixmap pix_star(":/res/PNG/star_yes.png");
                             _star.lab[i]->setPixmap(pix_star);
                             ++count;
@@ -275,8 +289,10 @@ void level_2::right()
                         }
                         _bool_box[i] = true;
                     }
-                    if (count == _num_box)
+                    if (count == _num_box){
+                        _background.bravo->play();
                         emit end_signal();
+                    }
                     break;
                 }
         }
@@ -287,14 +303,16 @@ void level_2::right()
 }
 void level_2::on_back_clicked()
 {
+    _background.select->stop();
+    _background.select->play();
     _background._2_is_Opened = true;
     _background._2_is_not_Finished = true;
     _background.where_am_i = 2;
     hide();
 }
 void level_2::end()
-{
-
+{                          
+    _background.bravo->stop();
     _background._2_is_Opened = false;
     _background._2_is_not_Finished = false;
     _background.where_am_i = 2;
@@ -304,6 +322,8 @@ void level_2::end()
 }
 void level_2::restart()
 {
+    _background.select->stop();
+    _background.select->play();
     ui->restartButton->hide();
     level2 level;
 
@@ -364,6 +384,8 @@ void level_2::restart()
 }
 void level_2::back()
 {
+    _background.select->stop();
+    _background.select->play();
     ++step;
     _background.you_win_level_2 = true;
     _background.stop_step = step;
@@ -377,6 +399,7 @@ void level_2::back()
 void level_2::special()
 {
     ui->specialButton->show();
+    _background.special_open->play();
     QPixmap pix_star(":/res/PNG/star_sp.png");
     _star.lab[3]->setPixmap(pix_star);
     _background.sp_win_level_2 = true;
@@ -385,10 +408,14 @@ void level_2::special()
 void level_2::something_check()
 {
     level2 level;
+    _background.running->stop();
+    _background.running->play();
     _player.lab->move(_player.x_axis * one_pixel, _player.y_axis * one_pixel);
     ++step;
     if (_player.x_axis == level.dog[1] && _player.y_axis == level.dog[0])
     {
+        if(!_background.eaten_level_2)
+            _background.eating->play();
         QPixmap pix_eaten(":/res/PNG/capoo_dog.png");
         _player.lab->setPixmap(pix_eaten);
         _player.lab_dog->hide();
@@ -402,6 +429,8 @@ void level_2::something_check()
 }
 void level_2::black_change()
 {
+    _background.select->stop();
+    _background.select->play();
     _background.theme = 2;
     QPixmap pix_block(":/res/PNG/WallRound_Gray.png");
     QPixmap pix_box(":/res/PNG/Crate_Black.png");
@@ -456,6 +485,8 @@ void level_2::black_change()
 }
 void level_2::brown_change()
 {
+    _background.select->stop();
+    _background.select->play();
     _background.theme = 1;
     QPixmap pix_block(":/res/PNG/WallRound_Beige.png");
     QPixmap pix_end(":/res/PNG/EndPoint_Brown.png");

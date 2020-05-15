@@ -15,6 +15,13 @@ public:
     QLabel *lab_rule;
     //QMovie *movie_capoo_gif_400_300;
 
+    QMediaPlayer *poke;
+    QMediaPlayer *eating;
+    QMediaPlayer *running;
+    QMediaPlayer *select;
+    QMediaPlayer *special_open;
+    QMediaPlayer *bravo;
+
     static bool _1_is_Opened;
     static bool _1_is_not_Finished;
     static bool _2_is_Opened;

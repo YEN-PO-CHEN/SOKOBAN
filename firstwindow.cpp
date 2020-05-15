@@ -18,6 +18,7 @@ FirstWindow::FirstWindow(QWidget *parent)
     connect(ui->level1Button, SIGNAL(clicked()), this, SLOT(on_level1_clicked()));
     connect(ui->level2Button, SIGNAL(clicked()), this, SLOT(on_level2_clicked()));
     connect(ui->exitButton, SIGNAL(clicked()), this, SLOT(on_exit_clicked()));
+
     ui->level1Button->hide();
     ui->level2Button->hide();
     ui->theme_1_Button->hide();
@@ -30,11 +31,12 @@ FirstWindow::~FirstWindow()
 }
 void FirstWindow::on_exit_clicked()
 {
+    _background.select->play();
     this->close();
 }
 void FirstWindow::on_start_clicked()
 {
-
+    _background.select->play();
     _background.lab_back->hide();
     ui->startButton->hide();
     _background.lab_capoo_gif->hide();
@@ -47,6 +49,7 @@ void FirstWindow::on_start_clicked()
 
 void FirstWindow::on_theme_1_clicked()
 {
+    _background.select->play();
     _background.theme = 1;
     _background.lab_back->show();
     _background.lab_capoo_gif->show();
@@ -59,6 +62,7 @@ void FirstWindow::on_theme_1_clicked()
 }
 void FirstWindow::on_theme_2_clicked()
 {
+
     _background.theme = 2;
     _background.lab_back->show();
     _background.lab_capoo_gif->show();
@@ -70,6 +74,7 @@ void FirstWindow::on_theme_2_clicked()
 
 void FirstWindow::on_level1_clicked()
 {
+    _background.select->play();
     this->hide();
     fst_level->resize(one_pixel * (_square_size + 2), one_pixel * (_square_size + 2));
 
@@ -109,6 +114,7 @@ void FirstWindow::on_level1_clicked()
 }
 void FirstWindow::on_level2_clicked()
 {
+    _background.select->play();
     this->hide();
     tnd_level->resize(one_pixel * (_square_size + 2), one_pixel * (_square_size + 2));
     tnd_level->show();
