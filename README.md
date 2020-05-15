@@ -49,7 +49,7 @@
     - 採到SPECIAL END時
     - 吃到狗狗
     - 按按鈕時。
-=======
+
 ## 圖片來源(圖片非做商業用途)
 - 亞拉 <https://home.gamer.com.tw/homeindex.php?owner=c11403>
 - 網路資料
