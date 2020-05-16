@@ -322,8 +322,10 @@ void level_2::end()
 }
 void level_2::restart()
 {
+    ui->specialButton->hide();
     _background.select->stop();
     _background.select->play();
+    _background.bravo->stop();
     ui->restartButton->hide();
     level2 level;
 
@@ -381,6 +383,7 @@ void level_2::restart()
     //hide you win
     _background.lab_you_win->hide();
     _background.lab_special_win->hide();
+
 }
 void level_2::back()
 {
