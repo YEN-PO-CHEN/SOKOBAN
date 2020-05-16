@@ -5,6 +5,8 @@
 - Programming language version gcc 7.1.0
 - Qt version : Qt 5.14.1
 - Qt Creator version :4.11.1
+## 遊玩示範
+**YouTube**<https://youtu.be/wdcX4PF8q_4>
 
 ## How to play
 - 和一般倉庫番玩法相同
@@ -25,15 +27,15 @@
     - Can go to next level when clear the stage
 
 ## Feature
-#### Main MENU:
+#### 1. Main MENU:
 - 離開遊戲(EXIT)
 - 開始遊戲(START)
     - 當點選遊戲開始時，會跳出遊戲玩法，在按出Next時，則會跳出LEVEL1與LEVEL2,得以選擇進入哪一關。
 
-#### The number od steps:
+#### 2. The number od steps:
 - 顯示在右下角。
 
-#### Other special methods:
+#### 3. Other special methods:
 - 當我經過地圖上某一點後，便會是Special End 進入下一關。
 
 ## Bonus
